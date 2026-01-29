@@ -68,6 +68,106 @@
 }
 
 // ============================================================================
+// VISUAL ENHANCEMENT HELPERS
+// ============================================================================
+
+// Theorem box - for key theorems and lemmas
+#let theorem-box(title, content) = {
+  block(
+    fill: rgb("#e8f4fc"),
+    stroke: (left: 3pt + rgb("#3182ce")),
+    inset: 12pt,
+    radius: (right: 4pt),
+    width: 100%,
+  )[
+    #text(weight: "bold", fill: rgb("#1a365d"))[📐 #title]
+    #v(0.3em)
+    #content
+  ]
+}
+
+// Definition box - for formal definitions
+#let definition-box(title, content) = {
+  block(
+    fill: rgb("#e8f5e9"),
+    stroke: (left: 3pt + rgb("#43a047")),
+    inset: 12pt,
+    radius: (right: 4pt),
+    width: 100%,
+  )[
+    #text(weight: "bold", fill: rgb("#2e7d32"))[📖 #title]
+    #v(0.3em)
+    #content
+  ]
+}
+
+// Warning/Attack box - for security attacks and warnings
+#let attack-box(title, content) = {
+  block(
+    fill: rgb("#ffebee"),
+    stroke: (left: 3pt + rgb("#e53935")),
+    inset: 12pt,
+    radius: (right: 4pt),
+    width: 100%,
+  )[
+    #text(weight: "bold", fill: rgb("#c62828"))[⚠️ #title]
+    #v(0.3em)
+    #content
+  ]
+}
+
+// Insight box - for key insights
+#let insight-box(content) = {
+  block(
+    fill: rgb("#fff8e1"),
+    stroke: (left: 3pt + rgb("#ffa000")),
+    inset: 12pt,
+    radius: (right: 4pt),
+    width: 100%,
+  )[
+    #text(weight: "bold", fill: rgb("#e65100"))[💡 Key Insight]
+    #v(0.3em)
+    #content
+  ]
+}
+
+// Answer/Result box - for final answers
+#let answer-box(content) = {
+  block(
+    fill: rgb("#e8f5e9"),
+    stroke: 1pt + rgb("#43a047"),
+    inset: 12pt,
+    radius: 4pt,
+    width: 100%,
+  )[
+    #text(weight: "bold", fill: rgb("#2e7d32"))[✅ Answer]
+    #v(0.3em)
+    #content
+  ]
+}
+
+// Quick reference card
+#let quick-ref(title, items) = {
+  block(
+    fill: rgb("#f5f5f5"),
+    stroke: 1pt + rgb("#9e9e9e"),
+    inset: 12pt,
+    radius: 4pt,
+    width: 100%,
+  )[
+    #text(weight: "bold", size: 11pt)[📋 #title]
+    #v(0.3em)
+    #items
+  ]
+}
+
+// Security status indicators
+#let secure = text(fill: rgb("#43a047"), weight: "bold")[✅ SECURE]
+#let insecure = text(fill: rgb("#e53935"), weight: "bold")[❌ INSECURE]
+#let partial = text(fill: rgb("#fb8c00"), weight: "bold")[⚠️ PARTIAL]
+
+
+// ============================================================================
 // TITLE PAGE
 // ============================================================================
 

@@ -1,6 +1,6 @@
 // Problem 7: Weak Primes for DLP
 
-= Problem 7: Unsuitable Primes for DLP-Based Cryptography
+= Problem 7:  Unsuitable Primes for DLP-Based Cryptography <p07>
 
 #block(
   fill: luma(245),
@@ -192,4 +192,52 @@ All prime factors are $<= 13$, so $p - 1$ is 13-smooth.
   inset: (left: 10pt, y: 5pt),
 )[
   *Key Takeaway:* The security of the discrete logarithm problem in $FF_p^*$ depends critically on the *largest prime factor* of $p - 1$. If $p - 1$ is smooth (all factors small), the Pohlig-Hellman attack makes DLP trivially solvable. Always use primes where $p - 1$ has a large prime factor — preferably safe primes of the form $p = 2q + 1$.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Divide and Conquer Attacks]
+  #v(0.3em)
+  
+  *The Core Vulnerability:* If a large problem can be broken into independent smaller problems, its hardness is determined by the *largest small piece*, not the total size.
+  
+  *Pohlig-Hellman Strategy:*
+  1. *Project* the problem into small subgroups (using $y^((p-1)/q)$)
+  2. *Solve* easily in each small world
+  3. *Combine* results (CRT) to conquer the large world
+  
+  *Analogy:* Trying to guess a 10-digit PIN is hard ($10^{10}$). But if the system tells you if the *first* 5 digits are correct, then the *last* 5, it becomes two 5-digit problems ($10^5 + 10^5$), which is trivial.
+  
+  *Real-World Impact:* This is why we use "Safe Primes" ($p=2q+1$) in Diffie-Hellman and RSA key generation.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Subgroup Attacks]
+  #v(0.3em)
+  
+  The "small subgroup" vulnerability appears in many contexts:
+  
+  - *Small Subgroup Confinement Attack:* Forcing a key into a small subgroup to exhaustively search it.
+  - *Lim-Lee Primes:* Generating primes to resist these attacks.
+  - *Curve25519:* Designed with cofactor 8 to avoid subgroup issues.
+  
+  *Connections:*
+  - #link(<p03>)[*P3 (Hard-Core DLP):*] Assumes DLP is hard. P7 tells us *when* it is hard.
+  - #link(<p16>)[*P16 (Constructions):*] Building crypto from groups requires choosing groups carefully.
+  - #link(<p15>)[*P15 (Polynomials):*] CRT is a "polynomial" version of combining results, similar to Pohlig-Hellman.
 ]

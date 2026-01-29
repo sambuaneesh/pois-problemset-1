@@ -1,6 +1,6 @@
 // Problem 17: EAV vs CPA Security
 
-= Problem 17: EAV-Security vs CPA-Security
+= Problem 17:  EAV-Security vs CPA-Security <p17>
 
 #block(
   fill: luma(245),
@@ -223,4 +223,69 @@ Formally, by a hybrid argument:
   - *Deterministic encryption* is never CPA-secure (Scheme 2)
   - *Key-less encryption* leaks the pad (Scheme 1)
   - *Randomized PRF-based schemes* (like CTR mode in Scheme 3) can achieve CPA security
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: The Security Hierarchy]
+  #v(0.3em)
+  
+  *The Core Insight:* Security notions form a hierarchy based on *how much power the adversary has*:
+  
+  $ "CPA-secure" arrow.r.double "EAV-secure" arrow.r.double "Semantic security" $
+  
+  *But the reverse is FALSE:* EAV $arrow.r.not$ CPA. This problem shows exactly why.
+  
+  *Intuitive Understanding:*
+  - *EAV (passive):* Adversary is like someone reading your mail — they see messages but can't influence what's sent
+  - *CPA (active):* Adversary is like someone who can *trick you into encrypting specific messages* — much more powerful!
+  
+  *The Three Failure Modes:*
+  
+  #table(
+    columns: (auto, 1fr),
+    inset: 8pt,
+    fill: (col, _) => if col == 0 { rgb("#ffebee") } else { white },
+    [*Scheme 1*], [No key → adversary learns the "mask" $G(r)$ by encrypting zeros],
+    [*Scheme 2*], [Deterministic → same message gives same ciphertext → trivial to detect],
+    [*Scheme 3*], [✅ Fresh randomness + PRF = unpredictable pads every time],
+  )
+  
+  *Real-World Lesson:* HTTPS uses modes similar to Scheme 3. Earlier protocols that reused IVs (like WEP) failed like Schemes 1-2.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The Three Requirements for CPA Security]
+  #v(0.3em)
+  
+  Every CPA-secure scheme needs ALL of these:
+  
+  + *Randomization:* Each encryption must be different even for the same message
+  + *Key-dependence:* The randomization must use the secret key (otherwise adversary can simulate it)  
+  + *Independence:* The "randomness" for one message must be unpredictable from others
+  
+  *Check against the schemes:*
+  - Scheme 1: Randomized ✅, Key-dependent ❌, fails
+  - Scheme 2: Randomized ❌, deterministic, fails
+  - Scheme 3: Randomized ✅, Key-dependent ✅, Independent ✅, succeeds!
+  
+  *Connections:*
+  - *P20, P25 (Block Cipher Modes):* CBC, CTR achieve CPA via randomization + PRF
+  - *P23 (CPA Construction):* Tests whether modifications preserve CPA security
+  - *P10 (Two-time Security):* What happens when randomization fails (nonce reuse)
 ]

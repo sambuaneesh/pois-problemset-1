@@ -1,6 +1,6 @@
 // Problem 13: PRF Extension and Counter Mode
 
-= Problem 13: Weakly-Secure PRF and Counter Mode
+= Problem 13:  Weakly-Secure PRF and Counter Mode <p13>
 
 #block(
   fill: luma(245),
@@ -216,4 +216,53 @@ Both terms are negligible, so the scheme is CPA-secure. $square$
   radius: 4pt,
 )[
   *Key Takeaway:* The super-polynomial size of $N$ is crucial! It ensures that even with polynomially many queries, the probability of counter range overlaps is negligible. This allows us to treat each encryption as if it uses fresh random pad values.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Random vs. Unique Nonces]
+  #v(0.3em)
+  
+  *Two ways to use CTR mode:*
+  
+  1.  *Randomized (Implicit IV):* Pick random $"IV"$.
+      - Pros: Stateless (don't need to remember anything).
+      - Cons: Need large $"IV"$ space ($2^{128}$) to avoid birthday collisions.
+  
+  2.  *Stateful (Explicit Counter):* Maintain a counter $C$. For next message, use $C+1$.
+      - Pros: No collisions ever! Information-theoretically distinct.
+      - Cons: Must maintain state. If computer crashes/resets, you might reuse nonces (Catastrophic!).
+  
+  *This problem analyzes Type 1.* It shows that with enough space ("super-poly"), random is as good as unique.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The "Weak PRF" Trick]
+  #v(0.3em)
+  
+  A "Weak PRF" is only secure on *random* inputs. Standard PRF is secure on *adversarial* inputs.
+  
+  *Transforming Weak → Strong:*
+  - If you have a Weak PRF, how to build a full encryption scheme?
+  - Use *randomized* inputs (like CTR mode)! The randomization forces the inputs to be (mostly) uniformly random, which is exactly where the Weak PRF is secure.
+  
+  *Connections:*
+  - #link(<p05>)[*P5 (CPA):*] CPA security requires handling *chosen* (adversarial) plaintexts.
+  - #link(<p20>)[*P20 (Dropped Blocks):*] CTR mode's specific structure also helps with error resilience.
+  - #link(<p25>)[*P25 (Stateful CBC):*] Chained modes have different IV requirements (must be unpredictable, not just unique).
 ]

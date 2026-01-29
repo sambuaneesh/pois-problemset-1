@@ -1,6 +1,6 @@
 // Problem 5: Chosen Plaintext Attacks
 
-= Problem 5: Chosen Plaintext Attacks
+= Problem 5:  Chosen Plaintext Attacks <p05>
 
 #block(
   fill: luma(245),
@@ -190,4 +190,58 @@ Choose plaintext $m = $ "AAA...A" of length $t_("max")$.
   inset: (left: 10pt, y: 5pt),
 )[
   *Key Insight:* In the chosen plaintext model, all classical ciphers can be broken with a single, carefully chosen plaintext. The required length equals the size of the key space that needs to be determined.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Why Chosen Plaintext Attacks Matter]
+  #v(0.3em)
+  
+  *The Core Pattern:* The attacker's goal is to *learn information* about the key. By carefully choosing inputs, they can "probe" the encryption function systematically.
+  
+  *Intuitive Analogy:* Think of the encryption function as a black box:
+  - *Ciphertext-only:* You're guessing with no feedback
+  - *Known-plaintext:* You have some input-output pairs (maybe not helpful ones)
+  - *Chosen-plaintext:* You can ask "what happens if I input this?" — like having a test oracle
+  
+  *Why 'A' is Magic:* In additive ciphers, 'A' = 0. Encrypting zero reveals the key directly because: $0 + k = k$
+
+  This is a universal attack pattern: *find a "neutral" input that exposes the key directly*.
+  
+  *Real-World Relevance:*
+  - *BEAST attack (2011)*: Exploited chosen-plaintext in CBC mode to decrypt HTTPS cookies
+  - *CRIME/BREACH attacks*: Used compression as a side-channel in chosen-plaintext settings
+  - *Padding oracle attacks*: Related model where encryption queries reveal information
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Plaintext Length ≈ Key Size]
+  #v(0.3em)
+  
+  Notice the pattern in the summary table:
+  - *Shift (key = 1 byte):* Need 1 plaintext character
+  - *Substitution (key = 26 bytes):* Need 26 characters
+  - *Vigenère (key = t bytes):* Need t characters
+  
+  *The General Principle:* To extract $k$ bits of key information, you generally need $O(k)$ bits of chosen plaintext. This isn't a coincidence — it's information theory!
+  
+  *Connections:*
+  - *P15 (Polynomial CPA):* Breaking a degree-$d$ polynomial scheme requires $d+1$ queries
+  - *P22 (OTP):* Even OTP can leak information with certain encodings
+  - *P24 (2-time security):* Reusing keys provides "free" chosen-plaintext pairs to the attacker
 ]

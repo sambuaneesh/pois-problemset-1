@@ -1,6 +1,6 @@
 // Problem 8: Encryption Scheme Equivalence
 
-= Problem 8: Uniform vs Non-Uniform Key Distributions
+= Problem 8:  Uniform vs Non-Uniform Key Distributions <p08>
 
 #block(
   fill: luma(245),
@@ -171,4 +171,51 @@ This satisfies requirement 2. $square$
   *Key Insight:* Any encryption scheme with non-uniform key distribution can be transformed into one with uniform key distribution by "unfolding" the probability mass — replicating keys in proportion to their original probability. This is essentially *inverse transform sampling* applied to key generation.
   
   *Security implication:* This shows that assuming uniform key generation is without loss of generality when analyzing encryption scheme security!
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Effective Key Size (Entropy)]
+  #v(0.3em)
+  
+  *The Core Truth:* A key is only as strong as its *unpredictability*, not its bit length.
+  
+  - If a 128-bit key is chosen from a distribution where $P(k=0) = 0.99$, it's not a "128-bit key" in terms of security. It's barely a 1-bit key!
+  - Shannon Entropy $H(K)$ measures the true "surprise" in the key.
+  
+  *Real-World Analogy:* 
+  - *Uniform:* Rolling a 128-sided die (impossible to guess).
+  - *Non-uniform:* Rolling a die that lands on "6" half the time (easy to guess).
+  
+  *Practical Impact:* This is why we need cryptographically secure RNGs (#link(<p02>)[P2]). Using `rand()` (often non-uniform or predictable) reduces the *effective* key space, making attacks feasible even with long keys.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Min-Entropy]
+  #v(0.3em)
+  
+  In cryptography, we often care about *Min-Entropy* ($H_min (K) = -log max_k Pr[K=k]$) rather than Shannon entropy.
+  
+  *Why?* Shannon entropy is an *average*. An attacker doesn't attack the "average" case; they attack the *most likely* keys first.
+  - If one key has probability $1/2$, min-entropy is 1 bit (attacker succeeds with probability $1/2$ by guessing it).
+  - Even if effective entropy is high on average, a single "likely" key ruins security.
+  
+  *Connections:*
+  - #link(<p01>)[*P1 (Kerckhoffs):*] The scheme is public, so security relies *entirely* on $K$ being unknown (high entropy).
+  - #link(<p03>)[*P3 (Randomness Extraction):*] How to turn a non-uniform source (like hard-core bits) into a uniform one.
 ]

@@ -1,6 +1,6 @@
 // Problem 27: One-Way Function Constructions
 
-= Problem 27: Constructions from One-Way Functions
+= Problem 27:  Constructions from One-Way Functions <p27>
 
 #block(
   fill: luma(245),
@@ -191,3 +191,62 @@ Suppose $A_4$ inverts $f_4$. Given $y = f(x)$, we want to find a preimage.
 ]
 
 *Better argument:* $f_4$ is one-way because inverting it requires finding $x$ such that $f(x) xor x = y$, which is at least as hard as finding $x$ such that $f(x) = y xor x$ (a random-looking value), which is as hard as inverting $f$. $square$
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: When Transformations Preserve One-Wayness]
+  #v(0.3em)
+  
+  *The Key Question:* Does the transformation "leak" information that helps inversion?
+  
+  #table(
+    columns: (auto, auto, 1fr),
+    inset: 8pt,
+    fill: (_, row) => if row == 0 { rgb("#e0e0e0") } else { white },
+    [*Construction*], [*One-Way?*], [*Why?*],
+    [$f(f(x))$], [✅ Yes], [Must still invert outer $f$],
+    [$f(x) || f(x xor y)$], [✅ Yes], [Both outputs still hide inputs],
+    [$f(x) || x_(1:log n)$], [❌ No], [Leaks part of input directly!],
+    [$f(x)_(1:n-1)$], [❌ Maybe], [Truncation adds freedom, might help],
+    [$f(x) xor x$], [✅ Yes], [XOR doesn't reveal $x$ or $f(x)$ alone],
+  )
+  
+  *The Pattern:*
+  - *Safe operations*: Composition, concatenation of OWF outputs, XOR with unknowns
+  - *Dangerous operations*: Revealing input bits, truncating output, creating redundancy
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Reduction-Based Security Proofs]
+  #v(0.3em)
+  
+  Each "yes" answer above follows the same template:
+  
+  1. *Assume* the new construction can be inverted efficiently
+  2. *Construct* an inverter for the original $f$ using this assumed inverter
+  3. *Conclude* by contradiction: if $f$ is one-way, so is the construction
+  
+  *The Critical Step:* The reduction must work "black-box" — using the adversary as a subroutine without knowing how it works.
+  
+  *This pattern appears everywhere:*
+  - *P3 (Hard-Core):* Breaking the predicate → breaking the OWF
+  - *P17-P20:* Breaking encryption → distinguishing PRF from random
+  - *P18:* If P=NP, we can invert any function via NP oracle
+  
+  *The Meta-Lesson:* Security proofs are really *algorithms* — they show how to transform one attack into another. If the target attack is impossible, so is the source attack.
+]

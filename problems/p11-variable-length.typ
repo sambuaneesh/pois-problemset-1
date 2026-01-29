@@ -1,6 +1,6 @@
 // Problem 11: Variable-Length Perfect Secrecy
 
-= Problem 11: Perfect Secrecy for Variable-Length Messages
+= Problem 11:  Perfect Secrecy for Variable-Length Messages <p11>
 
 #block(
   fill: luma(245),
@@ -186,3 +186,47 @@ If ciphertext length is allowed to be fixed at $ell + ceil(log_2 ell)$:
   [Leaks message length], [Hides message length],
   [Key size: $ell$ bits], [Key size: $ell + ceil(log_2 ell)$ bits],
 )
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: You Cannot Hide Length "For Free"]
+  #v(0.3em)
+  
+  *The Fundamental Trade-off:* To hide the length of a message, you MUST pad it to the *maximum possible length*.
+  
+  *Why?*
+  - If distinct message lengths produce distinct ciphertext lengths, the ciphertext leaks information about the message.
+  - This breaks *Perfect Secrecy* ($Pr[C=c | M=m_0] = Pr[C=c | M=m_1]$) if $m_0$ is short and $m_1$ is long.
+  
+  *Real-World Impact:*
+  - *Traffic Analysis:* Even if encrypted, packet sizes reveal what you're doing (e.g., streaming video vs typing text).
+  - *CRIME/BREACH Attacks:* Compression + Encryption leaks length, which leaks data!
+  - *Modern Protocols (TLS 1.3):* Support padding to hide exact lengths, but full hiding is too expensive (bandwidth cost).
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Side-Channel Leakage]
+  #v(0.3em)
+  
+  Length is a side channel. Other side channels include timing, power, and sound.
+  
+  *Connections:*
+  - #link(<p01>)[*P1 (Security Models):*] Perfect secrecy is a *theoretical* model. In practice, length is often accepted as "leaked."
+  - #link(<p05>)[*P5 (CPA):*] Indistinguishability games usually require $|m_0| = |m_1|$ to avoid trivial wins based on length.
+  - #link(<p17>)[*P17 (CPA):*] Standard definitions *exempt* length from secrecy requirements. We only demand $"Enc"(m_0) approx "Enc"(m_1)$ when $|m_0|=|m_1|$.
+]

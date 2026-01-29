@@ -1,6 +1,6 @@
 // Problem 26: Negligibility Characterization
 
-= Problem 26: Negligibility of $2^(-f(n))$
+= Problem 26:  Negligibility of $2^(-f(n))$ <p26>
 
 #block(
   fill: luma(245),
@@ -136,4 +136,55 @@ By definition, $g(n)$ is non-negligible — it is at least inverse polynomial. $
   - $f(n)$ grows at most as fast as $log n$ → $2^(-f(n))$ is non-negligible
   
   This makes sense: $2^(-c log n) = n^(-c')$ is exactly polynomial!
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Why Negligibility Matters]
+  #v(0.3em)
+  
+  *The Core Idea:* In cryptography, we can't make attacks *impossible* — we make them *impractical*. Negligible functions quantify "so unlikely that we don't care."
+  
+  *Intuitive Understanding:*
+  - *Non-negligible (bad):* Probability ≥ $1/n^c$ → attacker with $n^c$ tries can succeed
+  - *Negligible (good):* Probability shrinks faster than any polynomial → even $n^{100}$ tries won't help
+  
+  *The $log n$ Boundary Explained:*
+  - $2^(-log n) = 1/n$ → polynomial → non-negligible (attacker can brute-force)
+  - $2^(-n)$ → exponential decay → negligible (attacker needs exponential time)
+  - $2^(-sqrt(n))$ → still super-polynomial decay → negligible!
+  
+  *Real Numbers:* For $n = 128$ (typical security parameter):
+  - $2^(-128) approx 3 times 10^(-39)$ — atoms in the universe: $10^80$, so you'd need $10^(-39) × 10^80 = 10^41$ universes searching every atom every second for a year to find a solution
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Connections: Where You See Negligibility]
+  #v(0.3em)
+  
+  This pattern appears in every security proof:
+  
+  - *P2 (PRG security):* Distinguishing advantage must be negligible
+  - *P17-P20 (CPA security):* Attack success probability is negligible  
+  - *P27 (OWF):* Inversion probability is negligible
+  - *P3 (Hard-core predicates):* Prediction advantage is $1/2 + "negl"$
+  
+  *The Universal Template:* "For all PPT adversaries, $Pr["bad event"] ≤ "negl"(n)$"
+  
+  *Why $log n$ is the Boundary:* A PPT algorithm runs in $"poly"(n)$ time. If success probability is $1/"poly"(n)$, repeating $"poly"(n)$ times gives constant success. But if probability is $2^(-omega(log n))$, even $"poly"(n)$ repetitions give negligible total success.
 ]

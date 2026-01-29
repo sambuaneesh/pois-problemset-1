@@ -199,6 +199,35 @@ where $R : X -> Y$ is a truly random function.
 
 *CPA-Security (Chosen Plaintext Attack):* Adversary has oracle access to encryption. Can request encryptions of arbitrary messages before receiving challenge.
 
+=== CPA Security Game
+
+#block(
+  fill: rgb("#f5f5f5"),
+  inset: 10pt,
+  radius: 4pt,
+  width: 100%,
+)[
+  #set text(font: "DejaVu Sans Mono", size: 9pt)
+  ```
+      Adversary A                    Challenger C
+          │                              │
+          │────── Enc(mᵢ) queries ──────→│
+          │←──────── cᵢ ─────────────────│
+          │              ...             │
+          │────── (m₀, m₁) ─────────────→│
+          │                              │ b ← {0,1}
+          │                              │ c* = Enc(mᵦ)
+          │←──────── c* ─────────────────│
+          │                              │
+          │────── more queries ─────────→│
+          │←──────── cᵢ ─────────────────│
+          │                              │
+          │────── b' ───────────────────→│
+          │                              │
+                 A wins if b' = b
+  ```
+]
+
 *Key differences:*
 - EAV: Single ciphertext, no oracle
 - CPA: Multiple ciphertexts via oracle queries
@@ -307,25 +336,73 @@ $ c_i = E_k(m_i) $
 
 - *Pros:* Simple, parallelizable
 - *Cons:* Deterministic — identical plaintext blocks produce identical ciphertext blocks (pattern leakage)
-- *Security:* NOT CPA-secure
+- *Security:* #text(fill: rgb("#e53935"), weight: "bold")[❌ NOT CPA-secure]
 
 == G.2 CBC (Cipher Block Chaining) <cbc>
 
 $ c_0 = "IV", quad c_i = E_k(m_i xor c_(i-1)) $
 
+#block(
+  fill: rgb("#f5f5f5"),
+  inset: 10pt,
+  radius: 4pt,
+  width: 100%,
+)[
+  #set text(font: "DejaVu Sans Mono", size: 9pt)
+  ```
+  ┌────┐     ┌────┐     ┌────┐
+  │ m₁ │     │ m₂ │     │ m₃ │
+  └──┬─┘     └──┬─┘     └──┬─┘
+     │          │          │
+     ⊕←IV       ⊕←c₁       ⊕←c₂
+     │          │          │
+     ▼          ▼          ▼
+  ┌────┐     ┌────┐     ┌────┐
+  │ Eₖ │     │ Eₖ │     │ Eₖ │
+  └──┬─┘     └──┬─┘     └──┬─┘
+     │          │          │
+     ▼          ▼          ▼
+     c₁         c₂         c₃
+  ```
+]
+
 - *Decryption:* $m_i = D_k(c_i) xor c_(i-1)$
 - *IV requirement:* Must be random and unpredictable for CPA security
 - *Error propagation:* One corrupted $c_i$ affects $m_i$ and $m_(i+1)$
-- *Security:* CPA-secure with random IV
+- *Security:* #text(fill: rgb("#43a047"), weight: "bold")[✅ CPA-secure] with random IV
 
 == G.3 CTR (Counter Mode) <ctr>
 
 $ c_i = m_i xor E_k("IV" + i) $
 
+#block(
+  fill: rgb("#f5f5f5"),
+  inset: 10pt,
+  radius: 4pt,
+  width: 100%,
+)[
+  #set text(font: "DejaVu Sans Mono", size: 9pt)
+  ```
+  ┌───────┐   ┌───────┐   ┌───────┐
+  │ IV+1  │   │ IV+2  │   │ IV+3  │
+  └───┬───┘   └───┬───┘   └───┬───┘
+      │           │           │
+      ▼           ▼           ▼
+  ┌───────┐   ┌───────┐   ┌───────┐
+  │  Eₖ   │   │  Eₖ   │   │  Eₖ   │
+  └───┬───┘   └───┬───┘   └───┬───┘
+      │           │           │
+  m₁→ ⊕       m₂→ ⊕       m₃→ ⊕
+      │           │           │
+      ▼           ▼           ▼
+      c₁          c₂          c₃
+  ```
+]
+
 - *Decryption:* $m_i = c_i xor E_k("IV" + i)$
 - *Pros:* Parallelizable, no decryption circuit needed, random access
 - *IV requirement:* Must never repeat (counter collision breaks security)
-- *Security:* CPA-secure; resilient to dropped blocks (only that block lost)
+- *Security:* #text(fill: rgb("#43a047"), weight: "bold")[✅ CPA-secure]; resilient to dropped blocks
 
 == G.4 OFB (Output Feedback) <ofb>
 
@@ -333,6 +410,26 @@ $ z_0 = "IV", quad z_i = E_k(z_(i-1)), quad c_i = m_i xor z_i $
 
 - *Properties:* Stream cipher behavior, keystream independent of plaintext
 - *Error propagation:* Single bit error in $c_i$ only affects $m_i$
+
+== G.5 Mode Comparison
+
+#table(
+  columns: (auto, auto, auto, auto, auto),
+  inset: 8pt,
+  align: center,
+  fill: (col, row) => if row == 0 { rgb("#1a365d") } else if calc.rem(row, 2) == 0 { rgb("#f7fafc") } else { white },
+  table.header(
+    [#text(fill: white)[*Mode*]], 
+    [#text(fill: white)[*Parallel*]], 
+    [#text(fill: white)[*Random*]], 
+    [#text(fill: white)[*CPA*]], 
+    [#text(fill: white)[*Error*]]
+  ),
+  [ECB], [✅], [✅], [❌], [1 block],
+  [CBC], [Dec only], [❌], [✅], [2 blocks],
+  [CTR], [✅], [✅], [✅], [1 block],
+  [OFB], [❌], [❌], [✅], [1 block],
+)
 
 #line(length: 100%, stroke: 0.5pt + rgb("#cbd5e0"))
 

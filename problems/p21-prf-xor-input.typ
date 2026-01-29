@@ -1,6 +1,6 @@
 // Problem 21: F(k,x) XOR x is a PRF
 
-= Problem 21: PRF XORed with Input
+= Problem 21:  PRF XORed with Input <p21>
 
 #block(
   fill: luma(245),
@@ -142,4 +142,49 @@ Therefore $cal(H)$ is also a PRF. $square$
   inset: (left: 10pt, y: 5pt),
 )[
   *Key difference:* XORing PRF outputs together creates exploitable algebraic relations. XORing a PRF output with its input just applies a bijection, preserving pseudorandomness.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Structure Preservation]
+  #v(0.3em)
+  
+  *The Core Concept:* A "permutation" (bijection) shuffles probability mass without destroying uniformity.
+  
+  - If $Y$ is uniform, then $pi(Y)$ is uniform.
+  - Here, the map $y |-> y xor x$ is a bijection (specifically, a permutation of ${0,1}^n$).
+  
+  *Why this matters:* We often "mask" values in crypto using this principle.
+  - $"Enc"(m) = k xor m$ (One-Time Pad) uses the same principle: $m |-> m xor k$ is a bijection for fixed $k$.
+  - This construction shows that "masking with the input" is safe *if* you already have a random function of that input!
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The Even-Mansour Cipher]
+  #v(0.3em)
+  
+  This structure looks very similar to block cipher constructions:
+  
+  - *Even-Mansour:* $E(x) = P(x xor k_1) xor k_2$
+  - *Feistel Networks:* $L_{i+1} = R_i; R_{i+1} = L_i xor F(R_i)$ — XORing function output with other half!
+  
+  *Connections:*
+  - #link(<p19>)[*P19 (XOR PRF):*] Shows the danger of XORing *outputs* ($F(x) xor F(x)$ cancels).
+  - #link(<p04>)[*P4 (Substitution):*] Shows that composing simple permutations doesn't always add security.
+  - #link(<p12>)[*P12 (PRF Const):*] Shows how to build larger PRFs from smaller ones.
 ]

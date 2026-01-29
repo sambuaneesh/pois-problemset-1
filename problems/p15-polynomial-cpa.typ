@@ -1,6 +1,6 @@
 // Problem 15: CPA Security with Polynomial Evaluation
 
-= Problem 15: Breaking CPA Security with Polynomial Queries
+= Problem 15:  Breaking CPA Security with Polynomial Queries <p15>
 
 #block(
   fill: luma(245),
@@ -123,4 +123,56 @@ This is analogous to *Shamir's secret sharing* with threshold $d + 1$: any $d$ s
   inset: (left: 10pt, y: 5pt),
 )[
   *Key Insight:* The scheme leaks $p(m)$ for each encryption. Since a degree-$d$ polynomial has $d + 1$ coefficients (degrees of freedom), exactly $d + 1$ evaluations are needed to determine it. With fewer queries, the polynomial remains information-theoretically hidden.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Information Leakage via Algebraic Structure]
+  #v(0.3em)
+  
+  *The Core Pattern:* This attack exploits *algebraic structure* leaking through the ciphertext. Even if the base encryption is perfectly secure, *appending structured metadata* (like polynomial evaluations) can reveal enough information to distinguish.
+  
+  *Why Degree Matters:*
+  - A degree-$d$ polynomial has $d+1$ "unknowns" (coefficients)
+  - Each query provides one "equation" (a point on the polynomial)
+  - $d+1$ equations uniquely solve for $d+1$ unknowns → polynomial fully determined
+  - With only $d$ equations, infinitely many polynomials fit → no information about $p(m^*)$
+  
+  *Real-World Analogy:* 
+  - If I tell you 2 points, you can draw exactly one line through them
+  - If I tell you only 1 point, infinitely many lines pass through it
+  - The "extra degree of freedom" provides information-theoretic security
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Threshold = Degrees of Freedom + 1]
+  #v(0.3em)
+  
+  This "$d+1$ threshold" pattern appears throughout cryptography:
+  
+  - *Shamir Secret Sharing:* $k$-of-$n$ threshold scheme uses degree-$(k-1)$ polynomial. Need $k$ shares to reconstruct secret.
+  - *Reed-Solomon Codes:* Correct up to $d$ errors with degree-$2d$ redundancy
+  - *Polynomial Commitment Schemes:* Security relies on hiding polynomial until enough evaluations
+  
+  *The Deeper Principle:* This is Lagrange interpolation at work. A polynomial of degree $d$ is a vector in $(d+1)$-dimensional space. Each evaluation is a linear constraint. Need $d+1$ constraints to pin down the vector.
+  
+  *Connections:*
+  - *P5 (CPA Attacks):* Number of queries ≈ key complexity (same principle!)
+  - *Appendix F.1 (Lagrange):* The mathematical foundation
+  - *Secret Sharing:* Splitting secrets among parties using the same polynomial trick
 ]

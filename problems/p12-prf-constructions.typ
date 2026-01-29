@@ -1,6 +1,6 @@
 // Problem 12: PRF Constructions
 
-= Problem 12: PRF or Not?
+= Problem 12:  PRF or Not? <p12>
 
 #block(
   fill: luma(245),
@@ -223,4 +223,47 @@ $ Pr[A = B] = 1/(2^n) $
   radius: 4pt,
 )[
   *Key Insight:* When constructing PRFs from PRFs, ensure that the internal queries *never collide* for different external inputs. In part (a), prepending 0 and 1 guarantees distinct inputs. In part (b), the overlap between "prepend 0" and "append 1" creates exploitable collisions.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Domain Separation]
+  #v(0.3em)
+  
+  *The Design Principle:* When using the same key for multiple purposes (like generating two outputs), you must ensure the inputs live in separate "domains."
+  
+  *How to do it:* Prepending a *prefix* is the standard way.
+  - $F_k("len" || x)$ vs $F_k("mac" || x)$
+  - $F_k(0 || x)$ vs $F_k(1 || x)$ (Part a)
+  
+  *Why Part (b) Failed:* Prepending '0' vs Appending '1' is *not* a clean separation. The domains overlap ($0...1$ belongs to both!), causing collisions.
+  
+  *Real-World Example:* HKDF (HMAC-based Key Derivation Function) uses "info" strings to strictly separate derived keys.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Prefix-Free Encoding]
+  #v(0.3em)
+  
+  To safely combine inputs, you need a *prefix-free code* or fixed-length formatting.
+  
+  *Connections:*
+  - #link(<p09>)[*P9 (PRG):*] Similar issues. $G(x||y)$ vs $G(x||0)$ — structure matters.
+  - #link(<p21>)[*P21 (XOR PRF):*] Algebraic combinations (XOR) are another way domains can "collide" algebraically.
+  - #link(<p13>)[*P13 (Counter):*] Counters $0, 1, 2...$ are efficient domain separators.
 ]

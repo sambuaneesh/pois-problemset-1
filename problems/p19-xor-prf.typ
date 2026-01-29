@@ -1,6 +1,6 @@
 // Problem 19: XOR of PRF Values is NOT a PRF
 
-= Problem 19: XOR of PRF Outputs
+= Problem 19:  XOR of PRF Outputs <p19>
 
 #block(
   fill: luma(245),
@@ -131,4 +131,59 @@ Another attack exploits the XOR structure more generally:
   3. *Symmetry:* $cal(G)(x, y) = cal(G)(y, x)$
   
   Any of these can be used to distinguish $cal(G)$ from a random function.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: PRFs Must Be "Structureless"]
+  #v(0.3em)
+  
+  *The Core Principle:* A PRF must "look random." Any predictable structure — algebraic, statistical, or otherwise — is a vulnerability.
+  
+  *What "Random" Means:*
+  - A truly random function $R : X -> Y$ has no relationship between $R(x)$ and $R(y)$ for $x != y$
+  - $R(x_1) xor R(x_2)$ tells you nothing about $R(x_3)$
+  - No patterns, no correlations, no algebraic properties
+  
+  *The XOR Problem:* $cal(G)(x,y) = F(x) xor F(y)$ creates a *dependency graph*:
+  - $(x,x)$ always outputs $0$ — this alone kills PRF security
+  - Values "chain" together: knowing 2 outputs gives you the 3rd
+  
+  *Real-World Lesson:* Never combine PRF outputs in ways that create algebraic relationships. Modes like CTR work because each counter is unique — there's no "cancellation" pattern.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Algebraic Attacks Throughout Cryptography]
+  #v(0.3em)
+  
+  Exploiting algebraic structure is a recurring attack theme:
+  
+  - *P21 (PRF XOR Input):* What happens when you combine *inputs* algebraically?
+  - *P28 (PRF Variants):* Testing various transformations for hidden structure
+  - *Related-key attacks:* Exploiting $F_{k xor delta}$ vs $F_k$ relationships
+  - *Differential cryptanalysis:* Tracking XOR differences through ciphers
+  
+  *The Designer's Rule:* When building from PRFs/PRPs:
+  1. Use inputs that are guaranteed distinct (counters, nonces)
+  2. Never expose relationships between outputs
+  3. If combining outputs, ensure no algebraic cancellation
+  
+  *Connections:*
+  - *P17 (Scheme 1):* Key-less PRG leaks $G(r)$ directly
+  - *P22 (OTP Non-Zero):* Encoding creates detectable structure
 ]

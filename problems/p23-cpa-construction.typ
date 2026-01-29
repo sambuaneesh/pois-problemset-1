@@ -1,6 +1,6 @@
 // Problem 23: CPA-Secure Encryption Construction
 
-= Problem 23: CPA-Secure Encryption with Randomization
+= Problem 23:  CPA-Secure Encryption with Randomization <p23>
 
 #block(
   fill: luma(245),
@@ -134,4 +134,47 @@ $ "Dec"_1(k, (c_0, c_1)) &= c_1 xor "Dec"(k, c_0) \
   - Together: CPA security of the construction
   
   This is essentially how hybrid encryption works!
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: The KEM/DEM Paradigm]
+  #v(0.3em)
+  
+  This problem is a miniature version of *Hybrid Encryption* (KEM + DEM):
+  
+  1.  *KEM (Key Encapsulation Mechanism):* Encrypt a random session key $r$. ($c_0 = "Enc"(k, r)$)
+  2.  *DEM (Data Encapsulation Mechanism):* Use $r$ to encrypt the actual data efficiently. ($c_1 = m \oplus r$)
+  
+  *Why do this?*
+  - *Speed:* The "inner" encryption ($c_1$) is super fast (just XOR).
+  - *Flexibility:* We can send *long* messages by just generating a longer $r$ (or using $r$ as a seed for a PRG).
+  - *Safety:* Even if the main key $k$ is reused, the session key $r$ is fresh every time!
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Encrypt-then-MAC vs KEM+DEM]
+  #v(0.3em)
+  
+  Constructing secure schemes often involves composing primitives.
+  
+  *Connections:*
+  - #link(<p05>)[*P5 (CPA):*] Shows why raw deterministic encryption fails. This problem adds *randomization* ($r$) to fix it.
+  - #link(<p13>)[*P13 (CTR):*] Randomness is used as an IV/Counter. Here, randomness is used as a *session key*.
+  - #link(<p28>)[*P28 (MACs):*] We often need to ADD integrity (MAC) to this construction to get CCA security.
 ]

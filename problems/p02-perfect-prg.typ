@@ -1,6 +1,6 @@
 // Problem 2: Perfect Pseudo-Random Generators
 
-= Problem 2: Perfect Pseudo-Random Generators
+= Problem 2: Perfect Pseudo-Random Generators <p02>
 
 #block(
   fill: luma(245),
@@ -106,4 +106,52 @@ Since $G$ is deterministic and "stretches" $n$ bits into $n+1$ bits, it simply c
   inset: (left: 10pt, y: 5pt),
 )[
   *Why Computational PRGs Work:* In practice, we relax the requirement to *computational indistinguishability* — no *efficient* (polynomial-time) algorithm can distinguish. This is achievable because we only need to fool limited adversaries, not omniscient ones.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Compression vs Expansion]
+  #v(0.3em)
+  
+  *The Fundamental Trade-off:* You cannot create "something from nothing" with perfect fidelity. If you expand $n$ bits to $n+1$ bits deterministically, you *necessarily* lose coverage.
+  
+  *Intuitive Analogy:* Think of it like fitting 100 people into 50 chairs:
+  - With 100 people (outputs) and 50 chairs (seeds), some "outputs" must remain empty
+  - No rearrangement can make everyone sit — there simply aren't enough chairs
+  
+  *The Cryptographic Insight:* This is why cryptographic PRGs rely on *computational* security:
+  - The "missing" $2^n$ outputs exist, but finding them efficiently is hard
+  - It's like a treasure hidden in a haystack — it exists, but searching is impractical
+  
+  *Real-World Parallel:* This same principle appears in:
+  - *Data compression*: Perfect lossless compression of random data to a smaller size is impossible (pigeonhole)
+  - *Hash functions*: Collisions must exist when hashing large inputs to fixed-size outputs
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Counting Arguments in Cryptography]
+  #v(0.3em)
+  
+  This counting/pigeonhole argument appears throughout cryptography:
+  
+  - *P24 (2-time Perfect Secrecy):* We'll prove no scheme can be "2-time perfectly secure" using a similar counting argument
+  - *P10 (Key Reuse):* Why reusing keys in certain modes breaks security
+  - *Hash Collisions:* If output is 256 bits, $2^{256}+1$ inputs guarantee a collision
+  
+  *The Meta-Pattern:* Whenever domain and codomain have different sizes, counting arguments reveal fundamental impossibilities. *Perfect* security requires enough "space" (entropy); *computational* security lets us cheat with hardness assumptions.
 ]

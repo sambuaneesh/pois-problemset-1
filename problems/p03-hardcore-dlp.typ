@@ -1,6 +1,6 @@
 // Problem 3: Hard-Core Predicates for DLP
 
-= Problem 3: Hard-Core Predicates for DLP
+= Problem 3:  Hard-Core Predicates for DLP <p03>
 
 #block(
   fill: luma(245),
@@ -205,4 +205,60 @@ This may be preferable in some settings as the LSB can be slightly more efficien
   - *Security:* Reduces to hardness of DLP
   - *Efficiency:* One exponentiation per output bit
   - *Output:* Can generate arbitrarily many pseudorandom bits from a short seed
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Extracting Randomness from Structure]
+  #v(0.3em)
+  
+  *The Core Insight:* One-way functions "hide" information about their input. Hard-core predicates identify *which specific bit* is hidden most thoroughly.
+  
+  *Intuitive Analogy:* Imagine a locked safe ($g^x$) containing a number ($x$):
+  - You can see the safe but not open it (one-way function)
+  - Some properties (like "is the number even?") might be detectable from safe markings
+  - Hard-core bits are properties that are *completely invisible* from outside
+  
+  *The Design Pattern:* When building PRGs from OWFs:
+  1. Apply the one-way function to get a new state
+  2. Extract a hard-core bit as output
+  3. The bit is "safe" precisely because predicting it would break the OWF
+  
+  *Real-World Applications:*
+  - *Diffie-Hellman Key Exchange*: The shared secret $g^(a b)$ has hard-core bits that can be extracted as a session key
+  - *Deterministic Random Bit Generators (DRBGs)*: Standards like NIST SP 800-90A use similar constructions
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The Hybrid Argument Template]
+  #v(0.3em)
+  
+  The security proof here uses the *hybrid argument* — a technique you'll see repeatedly:
+  
+  - *P9, P16:* PRG security proofs
+  - *P17:* EAV vs CPA distinguishing
+  - *P19, P28:* PRF security arguments
+  
+  *The Universal Structure:*
+  1. Define a sequence of distributions: Real → ... → Ideal
+  2. Show adjacent distributions are indistinguishable
+  3. Use hardness assumption to prove each step
+  4. Transitivity gives you the full result
+  
+  *Why This Works:* If the real and ideal cases were distinguishable, *some* adjacent pair must also be — and that pair directly contradicts a hardness assumption.
 ]

@@ -1,6 +1,6 @@
 // Problem 16: Cryptographic Constructions
 
-= Problem 16: Constructing Primitives from Other Primitives
+= Problem 16:  Constructing Primitives from Other Primitives <p16>
 
 #block(
   fill: luma(245),
@@ -258,4 +258,55 @@ By a union bound over polynomially many nodes queried, adjacent hybrids are indi
   And also: $"PRG" arrow.r "OWF"$ directly.
   
   This shows that OWPs are a strong assumption that implies all other primitives!
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: The "Minicrypt" World]
+  #v(0.3em)
+  
+  *The Impagliazzo Worlds:*
+  - *Minicrypt:* OWFs exist. We have symmetric crypto (PRG, PRF, CPA/CCA Encryption, Signatures).
+  - *Cryptomania:* OWPs exist (maybe trapdoors). We have Public Key Crypto, OT, MPC.
+  
+  This problem builds the infrastructure of "Minicrypt":
+  1.  *OWP $\to$ PRG:* Goldreich-Levin (Turn hardness into randomness)
+  2.  *PRG $\to$ PRF:* GGM Tree (Turn small randomness into huge random-access function)
+  3.  *PRF $\to$ Encryption:* CPA Security (Part #link(<p13>)[P13])
+  
+  *It all starts with One-Wayness.* If OWFs don't exist, symmetric cryptography is dead (all encryption is breakable).
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Tree-Based Constructions (GGM)]
+  #v(0.3em)
+  
+  The *GGM Tree* construction is a fundamental pattern for expanding domains:
+  
+  - *Length:* Expands $n$-bit seed to $2^n$ outputs.
+  - *Structure:* Binary tree path determines the value.
+  
+  *Where else this appears:*
+  - *Merkle Trees:* Hashing up a tree to verify membership (Integrity).
+  - *Ratchet Trees (Signal):* Deriving keys for group chats.
+  - *Key Derivation:* Deriving subkeys hierarchically.
+  
+  *Connections:*
+  - #link(<p02>)[*P2 (PRG):*] The atomic building block.
+  - #link(<p13>)[*P13 (Weak PRF):*] Building stronger primitives from weaker ones.
 ]

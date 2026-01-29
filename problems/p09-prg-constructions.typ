@@ -1,6 +1,6 @@
 // Problem 9: PRG Constructions
 
-= Problem 9: PRG or Not?
+= Problem 9:  PRG or Not? <p09>
 
 #block(
   fill: luma(245),
@@ -241,4 +241,53 @@ This is easily distinguishable. $square$
   - *Bijections preserve uniformity:* Composing with a bijection maintains pseudorandomness (parts a, b)
   - *XORing parts of seed into output is dangerous:* Can create predictable patterns (part d)
   - *Combining PRG evaluations:* XORing outputs of the *same* PRG on related inputs can leak structure (part c)
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Rigorous Definitions Save Us]
+  #v(0.3em)
+  
+  *The Core Lesson:* Intuition ("it looks random") is terrible at cryptography.
+  - Part (c) *looks* complex (XORing two PRG outputs), but fails completely.
+  - Part (d) *looks* like a one-time pad, but applying it to the seed itself reveals the structure.
+  
+  *The Distinguisher Game:*
+  Think of a distinguisher as a "pattern detector."
+  - "If I see a 0 at the end, I shout FAKE." (Part c)
+  - "If the first $n$ bits are 0, I shout FAKE." (Part d)
+  
+  *Robust Design:* A secure construction must pass *every possible* statistical test. We prove this by *reduction*: "If you can distinguish $G'$, you can distinguish $G$."
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Input Manipulation Attacks]
+  #v(0.3em)
+  
+  Attacks often come from manipulating inputs to cancel out security guarantees:
+  
+  - *Part (c):* $0^n$ padding aligned perfectly to cancel out.
+  - *Part (d):* XORing the seed cancels the pseudorandomness derived *from* that seed.
+  
+  *Connections:*
+  - #link(<p05>)[*P5 (CPA):*] Attacker chooses messages to create recognizable ciphertexts.
+  - #link(<p19>)[*P19 (XOR PRF):*] Input $(x, x)$ causes output cancellation ($0$).
+  - #link(<p21>)[*P21 (Input XOR):*] Correlated inputs enable attacks.
+  
+  *The takeaway:* Never let an attacker control inputs that are algebraically related to the key or internal state!
 ]

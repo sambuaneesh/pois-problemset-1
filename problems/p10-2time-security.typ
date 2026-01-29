@@ -1,6 +1,6 @@
 // Problem 10: 2-Time Perfect Security
 
-= Problem 10: 2-Time Perfectly Secure Encryption
+= Problem 10:  2-Time Perfectly Secure Encryption <p10>
 
 #block(
   fill: luma(245),
@@ -153,3 +153,62 @@ $ Pr["Enc"(K, m'_1) = c_1 and "Enc"(K, m'_2) = c_2] = 1/(23^2) $
 )
 
 *Analogy:* This is similar to Shamir's secret sharing with threshold 2 — any 2 points determine a line, but 1 point reveals nothing about it.
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Multi-Time Security = Entropy per Message]
+  #v(0.3em)
+  
+  *The Core Formula:* A scheme with $k$ key "unknowns" can be $k$-time secure but not $(k+1)$-time secure.
+  
+  *Why?* Each encryption leaks one "equation" about the key. When equations ≥ unknowns, the key is determined.
+  
+  #table(
+    columns: (auto, auto, auto),
+    inset: 8pt,
+    fill: (_, row) => if row == 0 { rgb("#e0e0e0") } else { white },
+    [*Scheme*], [*Key Unknowns*], [*$k$-time secure for*],
+    [OTP (key = pad)], [$n$ bits], [1-time only],
+    [Affine ($a m+b$)], [2 elements], [2-time],
+    [Polynomial degree-$d$], [$d+1$ coefficients], [$(d+1)$-time],
+  )
+  
+  *The Design Principle:* Want $k$-time security? Use a key with $k$ degrees of freedom that's consumed linearly by each encryption.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Linear Algebra Determines Security Threshold]
+  #v(0.3em)
+  
+  This problem illustrates a deep connection: *cryptographic security often reduces to linear algebra*.
+  
+  - *Equations = Encryptions:* Each ciphertext gives a linear equation in key variables
+  - *Unknowns = Key entropy:* The key has some number of free variables
+  - *Full rank system:* When equations = unknowns, unique solution → key is exposed
+  - *Underdetermined:* When equations < unknowns, infinitely many keys fit → security!
+  
+  *Real-World Connections:*
+  - *WEP (broken):* Key reuse led to solving linear equations
+  - *Linear cryptanalysis:* Attacks based on finding linear approximations
+  - *Stream ciphers:* Must avoid linear key schedules
+  
+  *This pattern connects to:*
+  - *P5 (CPA Attacks):* Queries = equations, key complexity = unknowns
+  - *P15 (Polynomial CPA):* Degree $d$ → $(d+1)$ coefficients → $(d+1)$ queries to break
+  - *P24 (2-time Impossibility):* Formalizes why perfect $>1$-time security is impossible for OTP
+]

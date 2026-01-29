@@ -1,6 +1,6 @@
 // Problem 22: Modified OTP with Non-Zero Keys
 
-= Problem 22: OTP with Non-Zero Keys Only
+= Problem 22:  OTP with Non-Zero Keys Only <p22>
 
 #block(
   fill: luma(245),
@@ -87,4 +87,47 @@ If an adversary sees ciphertext $c$, they can immediately rule out the message $
   After modification: $|cal(K)| = 2^ell - 1 < 2^ell = |cal(M)|$ ✗
   
   The key space is now strictly smaller than the message space, making perfect secrecy impossible.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Coverage is Mandatory]
+  #v(0.3em)
+  
+  *The "Perfect" Standard:* To be perfectly secret, an adversary who sees a ciphertext $c$ must admit: "This could be *any* message $m$."
+  
+  - If even *one* message $m$ becomes impossible for a given $c$, you have leaked information (specifically, "It's not m").
+  - This requires every ciphertext to be "reachable" from every message.
+  
+  *Real-World Lesson:* Bias is fatal.
+  - If your RNG never outputs 0, you lose perfect secrecy (as shown here).
+  - If your RNG outputs even numbers slightly more often, you lose perfect secrecy (bias accumulates).
+  - *RC4 (WEP):* Failed because the first few bytes of output were biased!
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Key Space vs. Message Space]
+  #v(0.3em)
+  
+  The inequality $|K| < |M|$ is the *fundamental limit* of information-theoretic security.
+  
+  *Connections:*
+  - #link(<p08>)[*P8 (Key Distribution):*] Shows we can assume uniform keys. If the distribution has a "hole" (prob 0), it's like reducing the key space.
+  - #link(<p11>)[*P11 (Variable Length):*] Shows that mismatching lengths effectively disjoints the message spaces, breaking secrecy.
+  - #link(<p10>)[*P10 (2-Time Pad):*] Reusing the key reduces the *effective* key space relative to the total message size (2 messages vs 1 key), breaking security.
 ]

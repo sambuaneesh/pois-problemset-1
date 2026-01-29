@@ -1,6 +1,6 @@
 // Problem 24: 2-Time Perfect Secrecy is Impossible
 
-= Problem 24: Impossibility of 2-Time Perfect Secrecy
+= Problem 24:  Impossibility of 2-Time Perfect Secrecy <p24>
 
 #block(
   fill: luma(245),
@@ -154,4 +154,48 @@ For a pair of messages $(m_1, m_2)$, the possible ciphertext pairs $(c_1, c_2)$ 
   - Reusing a key leaks information about message relationships
   - This is why OTP must use fresh keys for each message
   - Computational security (CPA) is needed for multi-message security with key reuse
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Correlation is Leakage]
+  #v(0.3em)
+  
+  *The "Two-Time Pad" Disaster:*
+  - If $C_1 = M_1 \oplus K$ and $C_2 = M_2 \oplus K$...
+  - ... then $C_1 \oplus C_2 = (M_1 \oplus K) \oplus (M_2 \oplus K) = M_1 \oplus M_2$.
+  
+  *Why is this fatal?*
+  - The adversary doesn't know $M_1$ or $M_2$, but they know their *difference*.
+  - For English text, $M_1 \oplus M_2$ is extremely revealing (e.g., XOR of two spaces is 0).
+  - This is how the *Venona Project* broke Soviet communications!
+  
+  *General Principle:* Any deterministic function applied to two inputs with the *same* secret creates a relationship between the outputs that correlates the inputs.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Randomness Refreshing]
+  #v(0.3em)
+  
+  To safely reuse a key, we must *refresh* the randomness for each encryption.
+  
+  *Connections:*
+  - #link(<p05>)[*P5 (CPA):*] Randomized encryption (IV/Nonce) is the *only* way to reuse keys safely.
+  - #link(<p13>)[*P13 (Counter Mode):*] Uses a unique counter to effectively create a "fresh key" (pad) for every block.
+  - #link(<p21>)[*P21 (PRF XOR):*] XORing with input preserves randomness; XORing two outputs (like here) cancels it.
 ]

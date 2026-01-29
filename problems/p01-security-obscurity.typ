@@ -1,6 +1,6 @@
 // Problem 1: Security Through Obscurity
 
-= Problem 1: Security Through Obscurity
+= Problem 1:  Security Through Obscurity <p01>
 
 #block(
   fill: luma(245),
@@ -147,3 +147,49 @@ These are properties that protect encrypted communications even if long-term sec
 #v(0.5em)
 
 *Practical Note:* Modern secure messaging protocols (like Signal, WhatsApp's encryption) implement *both* forward and backward secrecy using a "double ratchet" algorithm, ensuring that compromise of any single key has limited impact on overall communication security.
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Why This Matters]
+  #v(0.3em)
+  
+  *The Core Pattern:* Security should come from *one well-protected secret* (the key), not from hiding how the system works.
+  
+  *Why?* Because:
+  - Algorithms get leaked, reverse-engineered, or independently discovered
+  - Public scrutiny makes algorithms *stronger*, not weaker
+  - A small secret (key) is easier to protect, rotate, and revoke than an entire system
+  
+  *Real-World Examples:*
+  - *AES*: The algorithm is public, published by NIST, studied by thousands of cryptographers — yet it remains secure because security lies in the 256-bit key
+  - *Intel ME vulnerabilities*: Proprietary "security through obscurity" in Intel chips has been repeatedly broken once researchers reverse-engineered it
+  - *CSS (DVD encryption)*: A proprietary algorithm that was quickly broken once DeCSS reverse-engineered it
+  
+  *Pattern Recognition:* Whenever you see a system that relies on *keeping the method secret*, ask: "What happens when (not if) this method is discovered?" Good systems survive disclosure.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Connections to Other Concepts]
+  #v(0.3em)
+  
+  - *PRGs/PRFs (P9, P12, P19):* These are public algorithms — anyone can implement them. Security comes from the secret seed/key.
+  - *CPA Security (P5, P17, P23):* The attacker knows the algorithm and can even get encryptions of chosen messages. The system must still be secure.
+  - *OWFs (P18, P27):* The function itself is public; security comes from computational hardness, not secrecy.
+  
+  *The Meta-Pattern:* Throughout this problem set, you'll see that *the adversary always knows the algorithm*. This is by design — it's the only way to build truly robust security.
+]

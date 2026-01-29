@@ -1,6 +1,6 @@
 // Problem 18: P ≠ NP and One-Way Functions
 
-= Problem 18: P ≠ NP vs One-Way Functions
+= Problem 18:  P ≠ NP vs One-Way Functions <p18>
 
 #block(
   fill: luma(245),
@@ -217,4 +217,68 @@ Given $phi$ and $w$, we can check in polynomial time whether $w$ satisfies $phi$
   - NOT one-way ✓ (random instances are easy)
   
   This demonstrates that P ≠ NP alone does not give us cryptographic security!
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: The Two Kinds of Hardness]
+  #v(0.3em)
+  
+  *This is perhaps the most fundamental distinction in theoretical cryptography:*
+  
+  #table(
+    columns: (1fr, 1fr),
+    inset: 10pt,
+    fill: (col, _) => if col == 0 { rgb("#e3f2fd") } else { rgb("#ffebee") },
+    [*Worst-Case Hard*], [*Average-Case Hard (Crypto)*],
+    [Some inputs are hard], [Random inputs are hard],
+    [Enough for complexity theory], [Required for cryptography],
+    [NP-completeness gives this], [We don't know how to get this from P≠NP],
+    [SAT, TSP, 3-coloring], [Factoring, DLP, lattice problems],
+  )
+  
+  *The Intuitive Gap:*
+  - *Worst-case:* "There's a needle in this haystack that's impossible to find"
+  - *Average-case:* "If you pick a random piece of hay, it LOOKS like a needle — you can't tell them apart"
+  
+  Cryptography needs the second! If most inputs are easy, an attacker just tries random inputs until one works.
+  
+  *Real-World Analogy:*
+  - *Worst-case locks:* Some locks in the world are unpickable → Not useful for YOUR door
+  - *Average-case locks:* A randomly manufactured lock is almost certainly unpickable → Useful!
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The Hardness Assumptions of Cryptography]
+  #v(0.3em)
+  
+  Modern cryptography is built on *specific* average-case hardness assumptions, not just P≠NP:
+  
+  - *Factoring:* Given $n = p dot q$, finding $p, q$ is hard on average
+  - *DLP (P3, P7):* Given $g^x$, finding $x$ is hard on average
+  - *Lattice problems:* Finding short vectors in high-dimensional lattices
+  
+  *The Research Frontier:*
+  - Can we base cryptography on P≠NP alone? (Open problem!)
+  - Lattice cryptography: offers worst-case to average-case reductions (closest we have)
+  
+  *Connections:*
+  - *P14 (Hard-Core Predicates):* Extracting bits that are guaranteed hard on average
+  - *P27 (OWF Constructions):* Building OWFs while preserving average-case hardness
+  - *P26 (Negligibility):* The quantitative definition of "almost always hard"
 ]

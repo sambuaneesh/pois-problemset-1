@@ -1,6 +1,6 @@
 // Problem 25: Stateful CBC-Mode and Ciphertext Length
 
-= Problem 25: CBC Mode Variants
+= Problem 25:  CBC Mode Variants <p25>
 
 #block(
   fill: luma(245),
@@ -179,4 +179,52 @@
   - Key schedule complexity
   
   Ciphertext length depends only on block size and message length.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Prediction vs. Repetition]
+  #v(0.3em)
+  
+  *Why CTR works with counters but CBC fails?*
+  
+  - *CTR Mode:* $"Enc"(m) = m plus.o F_k("Ctr")$.
+    - The counter must be *unique*. Predictability is fine because $F_k$ hides the output perfectly.
+  
+  - *CBC Mode:* $c_0 = "IV"$, $c_1 = F_k(m_1 plus.o "IV")$.
+    - The "IV" must be *unpredictable*.
+    - If I know $"IV"_("next")$, I can choose $m_1$ such that $m_1 plus.o "IV"_("next")$ creates a previously seen input to $F_k$.
+    - This allows *Chosen Plaintext Attacks (CPA)* to verify guesses about previous messages.
+  
+  *BEAST Attack (SSL/TLS):* Exploited exact predictable IV chaining!
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Initialization Vectors]
+  #v(0.3em)
+  
+  Different modes have different requirements for IVs:
+  
+  - *Randomized CBC:* IV must be unpredictable (random).
+  - *CTR / GCM:* IV must be unique (nonce).
+  - *Deterministic modes (SIV):* IV is derived from message (Synthetic IV).
+  
+  *Connections:*
+  - #link(<p05>)[*P5 (CPA):*] Predictable IVs essentially turn randomized encryption back into deterministic (or predictable) behavior.
+  - #link(<p13>)[*P13 (Counter):*] Shows the contrasting requirement (Uniqueness is sufficient).
 ]

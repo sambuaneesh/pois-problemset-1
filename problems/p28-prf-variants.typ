@@ -1,6 +1,6 @@
 // Problem 28: PRF Constructions
 
-= Problem 28: PRF Constructions Analysis
+= Problem 28:  PRF Constructions Analysis <p28>
 
 #block(
   fill: luma(245),
@@ -183,4 +183,45 @@
   [(c)], [$f_(k xor x) (y)$], [#text(fill: rgb("#4CAF50"))[*YES*] — key masking],
   [(d)], [$f_(f_k (x)) (y)$], [#text(fill: rgb("#4CAF50"))[*YES*] — GGM-like],
 )
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Composition is Hard]
+  #v(0.3em)
+  
+  *Designing new crypto is dangerous.*
+  - *Part (a)* creates linearity ($f(x) \oplus f(y)$) — destroys pseudo-randomness.
+  - *Part (b)* creates collisions ($x \oplus y = z$) — destroys uniqueness.
+  
+  *Successful Patterns:*
+  - *Part (d) (Nesting):* $f(f(x))$ works because the outer function is keyed with a random output. This is the basis of *HMAC* ($H(k plus.o "opad" || H(k plus.o "ipad" || m))$) and *GGM Trees*.
+  - *Part (c) (Key Masking):* Works if the PRF handles related keys well, but trickier to prove.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The Cascade Construction]
+  #v(0.3em)
+  
+  Using the output of one cryptographic primitive as the key for another is a standard pattern.
+  
+  *Connections:*
+  - #link(<p09>)[*P9 (PRG):*] Shows similar pitfalls when combining PRG outputs.
+  - #link(<p16>)[*P16 (GGM):*] Part (d) is exactly one step of the GGM tree construction.
+  - #link(<p21>)[*P21 (Input XOR):*] Shows that XORing *inputs* is fine, unlike XORing *outputs* (Part a).
 ]

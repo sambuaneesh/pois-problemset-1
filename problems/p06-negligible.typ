@@ -1,6 +1,6 @@
 // Problem 6: Negligible Functions
 
-= Problem 6: Negligible or Not?
+= Problem 6:  Negligible or Not? <p06>
 
 #block(
   fill: luma(245),
@@ -409,4 +409,54 @@ So $(log n)!$ grows super-polynomially.
   - $g(n) = (log n)^2$: negligible
   - $g(n) = sqrt(log n)$: NOT negligible ($sqrt(log n)/(log n) -> 0$)
   - $g(n) = 100 log n$: NOT negligible (just polynomial decay)
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Asymptotics Define Security]
+  #v(0.3em)
+  
+  *Why do we care about "eventually"?*
+  
+  In practice, $n$ is fixed (e.g., $n=128$). But definitions use $lim_(n->oo)$.
+  
+  *Reason:* Asymptotics provide a *robust guarantee* against future computers.
+  - If a scheme is broken in $O(n^3)$, a faster computer just allows attacking slightly larger keys.
+  - If a scheme is broken only in $O(2^n)$, a faster computer makes almost no difference (adding 1 bit to key doubles difficulty).
+  
+  *Negligible = "Zero" for Cryptographers:*
+  If your chance of winning the lottery is $10^(-9)$, you might play.
+  If your chance of guessing a key is $2^(-128) approx 10^(-39)$, you will *never* succeed in the lifetime of the universe.
+  Negligible functions capture this "physics-defying" impossibility.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The Calculus of Security]
+  #v(0.3em)
+  
+  We treat negligible functions like "infinitesimals" in calculus:
+  
+  - $"negl" + "negl" = "negl"$ (Union bound)
+  - $"poly" times "negl" = "negl"$ (Repeating attempts doesn't help)
+  - $epsilon - "negl" approx epsilon$ (Security is preserved)
+  
+  *Where this is used:*
+  - #link(<p02>)[*P2 (PRG):*] Distinguisher advantage $<= "negl"$
+  - #link(<p26>)[*P26 (Negligibility):*] Logarithmic threshold ($2^(-log n)$ is polynomial)
+  - #link(<p17>)[*P17 (CPA):*] One-time pad with errors? If errors are negligible, it's secure.
 ]

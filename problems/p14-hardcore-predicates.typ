@@ -1,6 +1,6 @@
 // Problem 14: Hard-Core Predicates
 
-= Problem 14: Hard-Core Predicates and Universality
+= Problem 14:  Hard-Core Predicates and Universality <p14>
 
 #block(
   fill: luma(245),
@@ -287,3 +287,53 @@ Wait, this reveals everything.
 ]
 
 $square$
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Hardness Concentration]
+  #v(0.3em)
+  
+  *The Paradox:* A function can be "hard to invert" (find ALL of $x$) even if *every single bit* of $x$ is easy to guess with probability $0.51$.
+  
+  *Hard-Core Predicates* extract the "concentrated hardness."
+  - They distill the one-wayness into a single bit that is *random* to the adversary.
+  - This is the bridge from "Hard Problems" (OWF) to "Randomness" (PRG).
+  
+  *Real-World Analogy:* 
+  - A shredded document is hard to reconstruct (OWF).
+  - Can you guess if the first word was "The"? Yes, easily (not hardcore).
+  - Can you guess if the 500th letter was 'Q'? No! (Hardcore).
+  
+  *Goldreich-Levin Theorem:* EVERY OWF has a hardcore predicate (the "inner product bit"). We don't need to find a special OWF; we just need to look at it the right way.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The "Bit" of Security]
+  #v(0.3em)
+  
+  Most crypto reduces to: "Can you distinguish this 1 bit from random?"
+  
+  - *PRG:* Distinguish string from random ≈ distinguish next bit from random.
+  - *CPA:* Distinguish Enc(m0) vs Enc(m1) ≈ distinguish hardcore bit.
+  - *Stream Ciphers:* Outputting hardcore bits of a OWF state.
+  
+  *Connections:*
+  - #link(<p03>)[*P3 (DLP Hardcore):*] Specific hardcore bits for DLP (MSB is hard).
+  - #link(<p16>)[*P16 (Constructions):*] Using hardcore bits to build PRGs from OWPs.
+  - #link(<p02>)[*P2 (PRG):*] Next-bit unpredictability is equivalent to PRG security.
+]

@@ -1,6 +1,6 @@
 // Problem 4: Modified Substitution Cipher
 
-= Problem 4: Modified Substitution Cipher
+= Problem 4:  Modified Substitution Cipher <p04>
 
 #block(
   fill: luma(245),
@@ -162,4 +162,59 @@ Output: Plaintext m and key (π, k)
   inset: (left: 10pt, y: 5pt),
 )[
   *Conclusion:* The modified cipher can be broken using standard frequency analysis techniques with $O(n)$ letter counting and human-guided (or automated) pattern matching. The shift cipher layer provides *zero additional security* because it merely relabels the already-permuted alphabet.
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Structure vs. Randomness]
+  #v(0.3em)
+  
+  *The Core Insight:* Security comes from destroying structure, not just hiding it.
+  
+  - *Substitution:* Preserves frequency distribution (Statistically invariant)
+  - *Shift:* Preserves adjacency and order
+  - *Permutation:* Preserves set membership
+  
+  When you compose weak operations that preserve the *same* structure, you don't get a strong operation. You just get a slightly messier weak operation.
+  
+  *Real-World Analogy:* 
+  - If you write a secret message in red ink.
+  - Then write it backwards.
+  - Then translate it to French.
+  ... It still has the statistical structure of language!
+  
+  *Modern Ciphers (AES/DES):* work by *alternating* confusion (removing structure) and diffusion (spreading influence) to truly destroy statistical patterns.
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: Closure Properties of Ciphers]
+  #v(0.3em)
+  
+  This problem illustrates the *closure property*:
+  
+  $ "Sub" compose "Shift" in "Sub" $
+  
+  The set of substitution ciphers is closed under composition with shift ciphers.
+  
+  *Connections:*
+  - #link(<p06>)[*P6 (Negligible):*] Closure properties of negligible functions (sum of negligible is negligible).
+  - #link(<p09>)[*P9 (PRG Closure):*] Is the set of PRGs closed under XOR? (See $G(x) xor G(x)$).
+  - #link(<p27>)[*P27 (OWF Constructions):*] Composition $f(f(x))$ preserves one-wayness.
+  
+  *Design Lesson:* To build stronger systems, you need components that *don't commute* or close. Example: $"AES"(x) = ... "AddRoundKey" compose "MixColumns" compose "SubBytes" ...$ — mixing linear and non-linear layers!
 ]

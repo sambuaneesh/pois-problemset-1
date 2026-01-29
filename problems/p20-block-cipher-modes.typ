@@ -1,6 +1,6 @@
 // Problem 20: Block Cipher Modes and Dropped Blocks
 
-= Problem 20: Dropped Ciphertext Blocks & CTR Mode Security
+= Problem 20:  Dropped Ciphertext Blocks & CTR Mode Security <p20>
 
 #block(
   fill: luma(245),
@@ -220,4 +220,65 @@ This is information-theoretically secure (like many independent one-time pads).
   $ (q^2 ell^2) / 2^129 = (2^60 dot 2^20) / 2^129 = 2^80 / 2^129 = 2^(-49) $
   
   This is negligible — the scheme is very secure!
+]
+
+#v(1.5em)
+
+#block(
+  fill: rgb("#fff8e1"),
+  stroke: (left: 3pt + rgb("#ffa000")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#e65100"))[💡 The Big Picture: Mode Properties = Trade-offs]
+  #v(0.3em)
+  
+  Each block cipher mode makes different trade-offs. This problem reveals a key dimension: *error resilience*.
+  
+  #table(
+    columns: (auto, auto, auto, auto),
+    inset: 8pt,
+    fill: (_, row) => if row == 0 { rgb("#e0e0e0") } else { white },
+    [*Mode*], [*Dropped Block*], [*Bit Flip*], [*Why?*],
+    [*CBC*], [2 blocks affected], [2 blocks], [Chaining means errors propagate forward once],
+    [*OFB*], [ALL subsequent], [1 block], [Keystream independent, but position-dependent],
+    [*CTR*], [Only that block], [1 block], [Each block decrypts independently],
+  )
+  
+  *The Design Insight:* CTR mode wins for error resilience because encryption is *stateless* — each block uses its counter, not the previous block.
+  
+  *Real-World Consequences:*
+  - *Network protocols (UDP):* CTR preferred because packets can arrive out of order or be lost
+  - *Disk encryption:* CTR/XTS preferred for random access
+  - *Streaming (TCP):* CBC acceptable because order is guaranteed
+]
+
+#v(1em)
+
+#block(
+  fill: rgb("#e3f2fd"),
+  stroke: (left: 3pt + rgb("#1976d2")),
+  inset: 12pt,
+  radius: (right: 4pt),
+  width: 100%,
+)[
+  #text(weight: "bold", fill: rgb("#0d47a1"))[🔗 Pattern: The Birthday Bound in Cryptography]
+  #v(0.3em)
+  
+  The security bound $(q^2 ell^2)/2^(n+1)$ follows the *birthday paradox* pattern:
+  
+  - With $2^n$ possible values and $Q$ queries, collision probability ≈ $Q^2 / 2^n$
+  - Once collisions happen, security degrades
+  
+  *You'll see this pattern everywhere:*
+  - *P13 (CTR nonce collision):* Same analysis
+  - *P25 (CBC stateful IV):* Birthday bound on IV reuse
+  - *Hash collisions:* $2^(n/2)$ messages to find collision in $n$-bit hash
+  
+  *The Practical Rule:* For $n$-bit security, you get about $2^(n/2)$ "safe" operations. For AES-128, that's $2^64$ blocks — sounds huge, but at 100 Gbps, you hit it in a few years!
+  
+  *Connections:*
+  - *P17 (Scheme 3):* Same CTR security proof
+  - *P26 (Negligibility):* When $2^(-49)$ counts as "secure"
 ]
