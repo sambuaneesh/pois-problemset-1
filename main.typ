@@ -119,6 +119,38 @@
 
 #include "problems/p10-2time-security.typ"
 
+#problem-separator()
+
+#include "problems/p11-variable-length.typ"
+
+#problem-separator()
+
+#include "problems/p12-prf-constructions.typ"
+
+#problem-separator()
+
+#include "problems/p13-counter-mode.typ"
+
+#problem-separator()
+
+#include "problems/p14-hardcore-predicates.typ"
+
+#problem-separator()
+
+#include "problems/p15-polynomial-cpa.typ"
+
+#problem-separator()
+
+#include "problems/p16-crypto-constructions.typ"
+
+#problem-separator()
+
+#include "problems/p17-eav-cpa-security.typ"
+
+#problem-separator()
+
+#include "problems/p18-p-np-owf.typ"
+
 // ============================================================================
 // To add a new problem:
 //   1. Read: .agent/appendix-registry.md (check existing concepts)
