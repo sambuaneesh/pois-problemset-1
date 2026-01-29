@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Definition:* An encryption scheme $("Gen", "Enc", "Dec")$ over message space $cal(M)$ and ciphertext space $cal(C)$ is *2-time perfectly secure* if for any $(m_1, m_2) in cal(M) times cal(M)$ and $(m'_1, m'_2) in cal(M) times cal(M)$ such that $m_1 != m_2$ and $m'_1 != m'_2$, and for any $c_1, c_2 in cal(C)$:
+  *Definition:* An encryption scheme $("Gen", "Enc", "Dec")$ over message space $cal(M)$ and ciphertext space $cal(C)$ is *2-time perfectly secure* #link(<perfect-secrecy>)[(see Appendix C.8)] if for any $(m_1, m_2) in cal(M) times cal(M)$ and $(m'_1, m'_2) in cal(M) times cal(M)$ such that $m_1 != m_2$ and $m'_1 != m'_2$, and for any $c_1, c_2 in cal(C)$:
   $ Pr["Enc"(K, m_1) = c_1 and "Enc"(K, m_2) = c_2] = Pr["Enc"(K, m'_1) = c_1 and "Enc"(K, m'_2) = c_2] $
   
   *Encryption Scheme over $ZZ_23$:*

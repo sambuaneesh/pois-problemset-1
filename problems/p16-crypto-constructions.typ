@@ -31,7 +31,7 @@ Let $f : {0,1}^n -> {0,1}^n$ be a one-way permutation.
   radius: 4pt,
 )[
   *Hard-core predicate (Goldreich-Levin):* For any OWP $f$, the inner product:
-  $ b(x, r) = angle.l x, r angle.r = plus.circle.big_(i=1)^n x_i dot r_i mod 2 $
+  $ b(x, r) = chevron.l x, r chevron.r = plus.o.big_(i=1)^n x_i dot r_i mod 2 $
   is a hard-core predicate for $f'(x, r) = (f(x), r)$.
 ]
 

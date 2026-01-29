@@ -178,6 +178,49 @@ $ |f(n)| < 1/(p(n)) $
 
 *Why it matters:* In cryptography, security proofs show that adversary's advantage is negligible in the security parameter $n$.
 
+#v(0.8em)
+
+== C.6 Pseudorandom Functions (PRFs) <prf>
+
+A *PRF* is a keyed function $F : cal(K) times X -> Y$ such that $F_k$ is indistinguishable from a truly random function.
+
+*Formal definition:* For all PPT distinguishers $D$ with oracle access:
+$ |Pr[D^(F_k) = 1] - Pr[D^R = 1]| <= "negl"(n) $
+
+where $R : X -> Y$ is a truly random function.
+
+*Construction from PRG (GGM):* Build a binary tree where each node applies the PRG to go left ($G_0$) or right ($G_1$) based on input bits.
+
+#v(0.8em)
+
+== C.7 EAV and CPA Security <eav-cpa>
+
+*EAV-Security (Eavesdropper):* Adversary sees ONE ciphertext. Cannot distinguish which of two chosen messages was encrypted.
+
+*CPA-Security (Chosen Plaintext Attack):* Adversary has oracle access to encryption. Can request encryptions of arbitrary messages before receiving challenge.
+
+*Key differences:*
+- EAV: Single ciphertext, no oracle
+- CPA: Multiple ciphertexts via oracle queries
+- CPA $=>$ EAV, but EAV $arrow.r.not$ CPA
+
+*Important:* Deterministic encryption is NEVER CPA-secure.
+
+#v(0.8em)
+
+== C.8 Perfect Secrecy <perfect-secrecy>
+
+An encryption scheme has *perfect secrecy* if the ciphertext reveals nothing about the plaintext:
+
+$ Pr[M = m | C = c] = Pr[M = m] $
+
+Equivalently: for all $m_0, m_1$ and all $c$:
+$ Pr["Enc"_K (m_0) = c] = Pr["Enc"_K (m_1) = c] $
+
+*Shannon's Theorem:* Perfect secrecy requires $|cal(K)| >= |cal(M)|$ (key space at least as large as message space).
+
+*Example:* One-Time Pad achieves perfect secrecy.
+
 #line(length: 100%, stroke: 0.5pt + rgb("#cbd5e0"))
 
 = #text(fill: rgb("#1a365d"))[D. Proof Techniques] <appendix-proofs>
@@ -227,6 +270,30 @@ Stated by Auguste Kerckhoffs in 1883:
 - Security must rely solely on key secrecy
 - Algorithms should be publicly scrutinized
 - Never rely on "security through obscurity"
+
+#line(length: 100%, stroke: 0.5pt + rgb("#cbd5e0"))
+
+= #text(fill: rgb("#1a365d"))[F. Mathematical Tools] <appendix-math>
+
+== F.1 Lagrange Interpolation <lagrange>
+
+Given $d + 1$ points $(x_0, y_0), ..., (x_d, y_d)$ with distinct $x_i$, there exists a *unique* polynomial $p(x)$ of degree at most $d$ passing through all points.
+
+*Formula:*
+$ p(x) = sum_(i=0)^d y_i product_(j != i) (x - x_j)/(x_i - x_j) $
+
+*Cryptographic application:* 
+- $d + 1$ evaluations uniquely determine a degree-$d$ polynomial
+- Basis for Shamir's secret sharing
+- Used in polynomial-based CPA attacks
+
+== F.2 Chinese Remainder Theorem (CRT) <crt>
+
+If $n_1, ..., n_k$ are pairwise coprime, then for any $a_1, ..., a_k$:
+$ x equiv a_i mod n_i "for all" i $
+has a unique solution modulo $N = n_1 dot ... dot n_k$.
+
+*Application:* Combining solutions from subgroups (Pohlig-Hellman).
 
 #v(2em)
 #align(center)[

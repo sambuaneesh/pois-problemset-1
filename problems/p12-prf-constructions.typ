@@ -23,7 +23,7 @@
   inset: 12pt,
   radius: 4pt,
 )[
-  *Pseudorandom Function (PRF):* A keyed function $f : {0,1}^n times {0,1}^n -> {0,1}^n$ is a PRF if no efficient adversary can distinguish between:
+  *Pseudorandom Function (PRF)* #link(<prf>)[(Appendix C.6)]*:* A keyed function $f : {0,1}^n times {0,1}^n -> {0,1}^n$ is a PRF if no efficient adversary can distinguish between:
   - Oracle access to $f_k (dot)$ for random $k$
   - Oracle access to a truly random function $R : {0,1}^n -> {0,1}^n$
   

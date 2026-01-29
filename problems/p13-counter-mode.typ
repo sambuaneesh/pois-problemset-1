@@ -26,7 +26,7 @@
   inset: 12pt,
   radius: 4pt,
 )[
-  *Weakly-Secure PRF:* A PRF $F : cal(K) times X -> Y$ is *weakly-secure* if it is indistinguishable from a random function when the adversary is restricted to querying on *distinct, uniformly random* inputs (rather than adversarially chosen inputs).
+  *Weakly-Secure PRF* #link(<prf>)[(see Appendix C.6)]*:* A PRF $F : cal(K) times X -> Y$ is *weakly-secure* if it is indistinguishable from a random function when the adversary is restricted to querying on *distinct, uniformly random* inputs (rather than adversarially chosen inputs).
   
   This is weaker than standard PRF security, but sufficient for many applications.
 ]

@@ -283,7 +283,7 @@ Wait, this reveals everything.
   
   This is NOT one-way (since $x$ is revealed). The question may be asking for something subtler, or there's a specific construction involving the Goldreich-Levin theorem.
   
-  *Alternative interpretation:* The question may be showing that even though *individual* bits aren't hardcore, the *Goldreich-Levin inner product* $angle.l x, r angle.r$ is still hardcore for any OWF.
+  *Alternative interpretation:* The question may be showing that even though *individual* bits aren't hardcore, the *Goldreich-Levin inner product* $chevron.l x, r chevron.r$ is still hardcore for any OWF.
 ]
 
 $square$

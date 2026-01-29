@@ -87,7 +87,7 @@ We now show the converse is *not* true: $P != "NP"$ does not necessarily imply O
   inset: 12pt,
   radius: 4pt,
 )[
-  *One-Way Function (OWF):* Requires *average-case* hardness.
+  *One-Way Function (OWF)* #link(<one-way-functions>)[(Appendix C.1)]*:* Requires *average-case* hardness.
   
   For all PPT $A$: $Pr_(x arrow.l {0,1}^n)[f(A(f(x))) = f(x)] <= "negl"(n)$
   

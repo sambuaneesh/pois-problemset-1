@@ -151,6 +151,46 @@
 
 #include "problems/p18-p-np-owf.typ"
 
+#problem-separator()
+
+#include "problems/p19-xor-prf.typ"
+
+#problem-separator()
+
+#include "problems/p20-block-cipher-modes.typ"
+
+#problem-separator()
+
+#include "problems/p21-prf-xor-input.typ"
+
+#problem-separator()
+
+#include "problems/p22-otp-nonzero.typ"
+
+#problem-separator()
+
+#include "problems/p23-cpa-construction.typ"
+
+#problem-separator()
+
+#include "problems/p24-2time-impossible.typ"
+
+#problem-separator()
+
+#include "problems/p25-cbc-stateful.typ"
+
+#problem-separator()
+
+#include "problems/p26-negligibility.typ"
+
+#problem-separator()
+
+#include "problems/p27-owf-constructions.typ"
+
+#problem-separator()
+
+#include "problems/p28-prf-variants.typ"
+
 // ============================================================================
 // To add a new problem:
 //   1. Read: .agent/appendix-registry.md (check existing concepts)

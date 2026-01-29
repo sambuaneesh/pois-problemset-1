@@ -10,11 +10,12 @@
 )[
   *Setup:* Let $F$ be a length-preserving pseudorandom function and $G$ be a pseudorandom generator with expansion factor $ell(n) = n + 1$. For each encryption scheme below, state whether it is EAV-secure and whether it is CPA-secure. The shared key $k in {0,1}^n$ is uniform.
   
-  + To encrypt $m in {0,1}^(n+1)$, choose uniform $r in {0,1}^n$ and output ciphertext $angle.l r, G(r) xor m angle.r$.
+  + To encrypt $m in {0,1}^(n+1)$, choose uniform $r in {0,1}^n$ and output ciphertext $chevron.l r, G(r) xor m chevron.r$.
+  + To encrypt $m in {0,1}^(n+1)$, choose uniform $r in {0,1}^n$ and output ciphertext $chevron.l r, G(r) xor m chevron.r$.
   
   + To encrypt $m in {0,1}^n$, output ciphertext $m xor F_k (0^n)$.
   
-  + To encrypt $m in {0,1}^(2n)$, parse $m$ as $m_1 || m_2$ with $|m_1| = |m_2|$, then choose uniform $r in {0,1}^n$ and send $angle.l r, m_1 xor F_k (r), m_2 xor F_k (r + 1) angle.r$.
+  + To encrypt $m in {0,1}^(2n)$, parse $m$ as $m_1 || m_2$ with $|m_1| = |m_2|$, then choose uniform $r in {0,1}^n$ and send $chevron.l r, m_1 xor F_k (r), m_2 xor F_k (r + 1) chevron.r$.
 ]
 
 #v(0.8em)
@@ -26,14 +27,14 @@
   inset: 12pt,
   radius: 4pt,
 )[
-  *EAV-Security (Eavesdropper):* Adversary sees ONE ciphertext of a chosen message. Cannot distinguish which of two messages was encrypted.
+  *EAV-Security (Eavesdropper)* #link(<eav-cpa>)[(Appendix C.7)]*:* Adversary sees ONE ciphertext of a chosen message. Cannot distinguish which of two messages was encrypted.
   
   *CPA-Security (Chosen Plaintext):* Adversary has ACCESS to encryption oracle. Can request encryptions of arbitrary messages, then tries to distinguish challenge ciphertext.
 ]
 
 #v(1em)
 
-== Scheme 1: $"Enc"(m) = angle.l r, G(r) xor m angle.r$ where $r arrow.l {0,1}^n$
+== Scheme 1: $"Enc"(m) = chevron.l r, G(r) xor m chevron.r$ where $r arrow.l {0,1}^n$
 
 *Note:* This scheme does NOT use the key $k$ at all!
 
@@ -137,7 +138,7 @@ An EAV adversary cannot distinguish which message was encrypted.
 
 #v(1em)
 
-== Scheme 3: $"Enc"(m_1 || m_2) = angle.l r, m_1 xor F_k (r), m_2 xor F_k (r + 1) angle.r$
+== Scheme 3: $"Enc"(m_1 || m_2) = chevron.l r, m_1 xor F_k (r), m_2 xor F_k (r + 1) chevron.r$
 
 *Note:* This is essentially CTR mode with a random starting counter.
 
@@ -205,9 +206,9 @@ Formally, by a hybrid argument:
     [#text(fill: white)[*EAV-Secure?*]], 
     [#text(fill: white)[*CPA-Secure?*]]
   ),
-  [1: $angle.l r, G(r) xor m angle.r$], [#text(fill: rgb("#4CAF50"))[YES]], [#text(fill: rgb("#d9534f"))[NO] (key-less)],
+  [1: $chevron.l r, G(r) xor m chevron.r$], [#text(fill: rgb("#4CAF50"))[YES]], [#text(fill: rgb("#d9534f"))[NO] (key-less)],
   [2: $m xor F_k (0^n)$], [#text(fill: rgb("#4CAF50"))[YES]], [#text(fill: rgb("#d9534f"))[NO] (deterministic)],
-  [3: $angle.l r, m_1 xor F_k (r), m_2 xor F_k (r+1) angle.r$], [#text(fill: rgb("#4CAF50"))[YES]], [#text(fill: rgb("#4CAF50"))[YES] (CTR mode)],
+  [3: $chevron.l r, m_1 xor F_k (r), m_2 xor F_k (r+1) chevron.r$], [#text(fill: rgb("#4CAF50"))[YES]], [#text(fill: rgb("#4CAF50"))[YES] (CTR mode)],
 )
 ]
 
