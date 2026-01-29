@@ -10,9 +10,9 @@
 )[
   *Task:* Give complete details of how to construct $Y$ from $X$ where:
   
-  + $X =$ One-way permutation, $Y =$ Pseudorandom generator
-  + $X =$ Pseudorandom generator, $Y =$ One-way function
-  + $X =$ Pseudorandom generator, $Y =$ Pseudorandom function
+  + $X =$ One-way permutation #link(<one-way-functions>)[(C.1)], $Y =$ Pseudorandom generator #link(<prg>)[(C.3)]
+  + $X =$ Pseudorandom generator #link(<prg>)[(C.3)], $Y =$ One-way function #link(<one-way-functions>)[(C.1)]
+  + $X =$ Pseudorandom generator #link(<prg>)[(C.3)], $Y =$ Pseudorandom function #link(<prf>)[(C.6)]
 ]
 
 #v(0.8em)

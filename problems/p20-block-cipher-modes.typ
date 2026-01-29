@@ -9,8 +9,8 @@
   width: 100%,
 )[
   *Tasks:*
-  + What is the effect of a dropped ciphertext block (e.g., $c_1, c_2, c_3, ...$ received as $c_1, c_3, ...$) when using CBC, OFB, and CTR modes?
-  + Consider CTR mode variant where $c_i := m_i xor F_k ("IV" + i)$ with uniform IV. Prove CPA-security and give a concrete security bound.
+  + What is the effect of a dropped ciphertext block (e.g., $c_1, c_2, c_3, ...$ received as $c_1, c_3, ...$) when using CBC #link(<cbc>)[(G.2)], OFB #link(<ofb>)[(G.4)], and CTR #link(<ctr>)[(G.3)] modes?
+  + Consider CTR mode variant where $c_i := m_i xor F_k ("IV" + i)$ with uniform IV. Prove CPA-security #link(<eav-cpa>)[(C.7)] and give a concrete security bound.
 ]
 
 #v(0.8em)

@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Background:* A predicate $b : {0,1}^* -> {0,1}$ is a *hard-core predicate* of a one-way function $f(dot)$ if $b(x)$ is efficiently computable given $x$, and there exists a negligible function $nu$ such that for every PPT adversary $A$ and every $n$:
+  *Background:* A predicate $b : {0,1}^* -> {0,1}$ is a *hard-core predicate* #link(<hard-core-predicates>)[(Appendix C.2)] of a one-way function $f(dot)$ if $b(x)$ is efficiently computable given $x$, and there exists a negligible function $nu$ such that for every PPT adversary $A$ and every $n$:
   $ Pr[A(f(x)) = b(x)] <= 1/2 + nu(n) $
   
   *Tasks:*

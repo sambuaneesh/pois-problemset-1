@@ -295,7 +295,81 @@ has a unique solution modulo $N = n_1 dot ... dot n_k$.
 
 *Application:* Combining solutions from subgroups (Pohlig-Hellman).
 
+#line(length: 100%, stroke: 0.5pt + rgb("#cbd5e0"))
+
+= #text(fill: rgb("#1a365d"))[G. Block Cipher Modes] <block-cipher-modes>
+
+Block ciphers encrypt fixed-size blocks. *Modes of operation* extend them to arbitrary-length messages.
+
+== G.1 ECB (Electronic Codebook) <ecb>
+
+$ c_i = E_k(m_i) $
+
+- *Pros:* Simple, parallelizable
+- *Cons:* Deterministic — identical plaintext blocks produce identical ciphertext blocks (pattern leakage)
+- *Security:* NOT CPA-secure
+
+== G.2 CBC (Cipher Block Chaining) <cbc>
+
+$ c_0 = "IV", quad c_i = E_k(m_i xor c_(i-1)) $
+
+- *Decryption:* $m_i = D_k(c_i) xor c_(i-1)$
+- *IV requirement:* Must be random and unpredictable for CPA security
+- *Error propagation:* One corrupted $c_i$ affects $m_i$ and $m_(i+1)$
+- *Security:* CPA-secure with random IV
+
+== G.3 CTR (Counter Mode) <ctr>
+
+$ c_i = m_i xor E_k("IV" + i) $
+
+- *Decryption:* $m_i = c_i xor E_k("IV" + i)$
+- *Pros:* Parallelizable, no decryption circuit needed, random access
+- *IV requirement:* Must never repeat (counter collision breaks security)
+- *Security:* CPA-secure; resilient to dropped blocks (only that block lost)
+
+== G.4 OFB (Output Feedback) <ofb>
+
+$ z_0 = "IV", quad z_i = E_k(z_(i-1)), quad c_i = m_i xor z_i $
+
+- *Properties:* Stream cipher behavior, keystream independent of plaintext
+- *Error propagation:* Single bit error in $c_i$ only affects $m_i$
+
+#line(length: 100%, stroke: 0.5pt + rgb("#cbd5e0"))
+
+= #text(fill: rgb("#1a365d"))[H. Computational Complexity] <complexity>
+
+== H.1 P vs NP <p-np>
+
+- *P:* Problems solvable in polynomial time by a deterministic Turing machine
+- *NP:* Problems whose solutions can be *verified* in polynomial time
+- *P ⊆ NP:* Every efficiently solvable problem is efficiently verifiable
+- *P = NP?:* Major open problem in computer science
+
+*Cryptographic relevance:* If P = NP, most cryptographic assumptions would break (factoring, DLP, etc. would be in P).
+
+== H.2 BPP and PPT Algorithms <ppt>
+
+- *BPP (Bounded-error Probabilistic Polynomial time):* Problems solvable by randomized algorithms in polynomial time with error probability < 1/3
+- *PPT (Probabilistic Polynomial Time):* Algorithms that run in polynomial time and may use random bits
+
+*In cryptography:* Adversaries are modeled as PPT algorithms — they can use randomness but are computationally bounded.
+
+== H.3 Worst-Case vs Average-Case Hardness <hardness>
+
+#table(
+  columns: (1fr, 1fr),
+  inset: 10pt,
+  fill: (col, _) => if col == 0 { rgb("#e3f2fd") } else { rgb("#fff3e0") },
+  [*Worst-Case Hard*], [*Average-Case Hard*],
+  [Hard on SOME inputs], [Hard on RANDOM inputs],
+  [NP-complete problems], [One-way functions],
+  [Cryptographically weak], [Cryptographically useful],
+)
+
+*Key insight:* Cryptography requires *average-case* hardness. A function that's easy to invert on most inputs (but hard on a few) is useless for security.
+
 #v(2em)
 #align(center)[
   #text(fill: rgb("#718096"), size: 10pt)[— End of Appendix —]
 ]
+

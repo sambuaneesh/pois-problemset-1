@@ -9,7 +9,7 @@
   width: 100%,
 )[
   *Tasks:*
-  + Consider a stateful variant of CBC-mode where the sender increments the IV by 1 each time a message is encrypted (rather than choosing IV at random). Show this scheme is NOT CPA-secure.
+  + Consider a stateful variant of CBC-mode #link(<cbc>)[(Appendix G.2)] where the sender increments the IV by 1 each time a message is encrypted (rather than choosing IV at random). Show this scheme is NOT CPA-secure #link(<eav-cpa>)[(C.7)].
   + Say CBC-mode encryption uses a block cipher with 256-bit key and 128-bit block length to encrypt a 1024-bit message. What is the length of the resulting ciphertext?
 ]
 

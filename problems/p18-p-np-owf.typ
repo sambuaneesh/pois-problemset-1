@@ -8,11 +8,11 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Task:* Show that the existence of one-way functions implies $P != "NP"$. 
+  *Task:* Show that the existence of one-way functions #link(<one-way-functions>)[(Appendix C.1)] implies $P != "NP"$ #link(<p-np>)[(Appendix H.1)]. 
   
   Conversely, assume $P != "NP"$. Show that there exists a function $f$ that is:
   - Computable in polynomial time
-  - Hard to invert in the *worst case* (i.e., for all PPT algorithms $A$, $Pr_(x arrow.l {0,1}^n) [f(A(f(x))) = f(x)] != 1$)
+  - Hard to invert in the *worst case* #link(<hardness>)[(H.3)] (i.e., for all PPT #link(<ppt>)[(H.2)] algorithms $A$, $Pr_(x arrow.l {0,1}^n) [f(A(f(x))) = f(x)] != 1$)
   
   but $f$ is *not* a one-way function.
 ]

@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Setup:* Suppose $("Gen", "Enc", "Dec")$ is a CPA-secure encryption scheme that encrypts messages belonging to a field $FF$. Construct a new encryption scheme as follows:
+  *Setup:* Suppose $("Gen", "Enc", "Dec")$ is a CPA-secure #link(<eav-cpa>)[(Appendix C.7)] encryption scheme that encrypts messages belonging to a field $FF$. Construct a new encryption scheme as follows:
   
   - $"Gen"_1 (1^n)$: Sample $k' arrow.l "Gen"(1^n)$, then sample $p$, a random degree-$d$ polynomial over $FF$. The key is $k = (k', p)$.
   
