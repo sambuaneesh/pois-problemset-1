@@ -12,6 +12,18 @@
 #set heading(numbering: "1.")
 #set par(justify: true, leading: 0.65em)
 
+// Style links with attractive pill-style appearance (preserves clickability)
+#show link: it => {
+  text(fill: rgb("#2c5282"), weight: "medium", size: 9pt)[
+    #box(
+      fill: rgb("#e8f4fc"),
+      inset: (x: 5pt, y: 2pt),
+      radius: 3pt,
+      stroke: 0.5pt + rgb("#3182ce"),
+    )[#it]
+  ]
+}
+
 // Custom styling for level-1 headings (Problems)
 #show heading.where(level: 1): it => {
   v(0.5em)
@@ -38,23 +50,20 @@
 // HELPER FUNCTIONS (available to all included files)
 // ============================================================================
 
-// Problem separator function
+// Problem separator - uses pagebreak for each problem
 #let problem-separator() = {
-  v(1.5em)
-  align(center)[
-    #box(width: 80%)[
-      #align(center)[
-        #text(fill: rgb("#a0aec0"))[◆ ◆ ◆]
-      ]
-    ]
-  ]
-  v(1em)
+  pagebreak()
 }
 
-// Prerequisite reference helper - creates a small linked reference to appendix
+// Prerequisite reference helper - creates a styled linked reference to appendix
 #let prereq(label-name, display-text) = {
-  text(size: 9pt, fill: rgb("#3182ce"))[
-    #link(label(label-name))[[↗ #display-text]]
+  box(
+    fill: rgb("#f0e6ff"),
+    inset: (x: 5pt, y: 2pt),
+    radius: 3pt,
+  )[
+    #set text(size: 9pt, fill: rgb("#6b46c1"))
+    #link(label(label-name))[↗ #display-text]
   ]
 }
 
@@ -62,20 +71,61 @@
 // TITLE PAGE
 // ============================================================================
 
+#set page(numbering: none)
+
+#v(1fr)
+
 #align(center)[
   #block(
     fill: gradient.linear(rgb("#1a365d"), rgb("#2c5282"), angle: 90deg),
-    inset: 20pt,
-    radius: 8pt,
-    width: 100%,
+    inset: 30pt,
+    radius: 12pt,
+    width: 85%,
   )[
-    #text(size: 20pt, weight: "bold", fill: white)[Principles of Information Security]
+    #text(size: 28pt, weight: "bold", fill: white)[Principles of Information Security]
+    #v(0.5em)
+    #line(length: 60%, stroke: 1pt + rgb("#bee3f8"))
+    #v(0.5em)
+    #text(size: 16pt, fill: rgb("#bee3f8"))[Problem Set - I]
     #v(0.3em)
-    #text(size: 14pt, fill: rgb("#bee3f8"))[Problem Set - I | Answer Book]
+    #text(size: 12pt, fill: rgb("#a3d0f0"))[Complete Answer Book]
   ]
+  
+  #v(2em)
+  
+  #text(size: 10pt, fill: rgb("#718096"))[28 Problems • Comprehensive Solutions • With Appendix]
+  
+  #v(1em)
+  
+  #text(size: 9pt, fill: rgb("#a0aec0"))[Monsoon 2025-26]
 ]
 
-#v(1.5em)
+#v(1fr)
+
+#pagebreak()
+
+// ============================================================================
+// TABLE OF CONTENTS
+// ============================================================================
+
+#set page(numbering: "1", number-align: center)
+#counter(page).update(1)
+
+#align(center)[
+  #text(size: 18pt, weight: "bold", fill: rgb("#1a365d"))[Table of Contents]
+  #v(0.3em)
+  #line(length: 40%, stroke: 0.8pt + rgb("#3182ce"))
+]
+
+#v(1em)
+
+#outline(
+  title: none,
+  indent: 1.5em,
+  depth: 1,
+)
+
+#pagebreak()
 
 // ============================================================================
 // PROBLEMS - Add new problems here by including their files
