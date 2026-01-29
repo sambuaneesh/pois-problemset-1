@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Setup:* Let $("Gen", "Enc", "Dec")$ be a CPA-secure encryption scheme. Construct $("Gen"_1, "Enc"_1, "Dec"_1)$:
+  *Setup:* Let $("Gen", "Enc", "Dec")$ be a CPA-secure #link(<eav-cpa>)[(Appendix C.7)] encryption scheme. Construct $("Gen"_1, "Enc"_1, "Dec"_1)$:
   
   - $"Gen"_1 (1^n)$: $k arrow.l "Gen"(1^n)$
   - $"Enc"_1 (k, m)$: Sample $r arrow.l {0,1}^n$ uniformly. $c_0 := "Enc"(k, r)$, $c_1 := r xor m$. Output $c = (c_0, c_1)$.

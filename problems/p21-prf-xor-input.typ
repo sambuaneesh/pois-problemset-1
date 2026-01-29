@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Task:* Let $cal(F) : {0,1}^n times {0,1}^n -> {0,1}^n$ be a PRF. Prove that $cal(H)(k, x) = cal(F)(k, x) xor x$ is also a PRF.
+  *Task:* Let $cal(F) : {0,1}^n times {0,1}^n -> {0,1}^n$ be a PRF #link(<prf>)[(Appendix C.6)]. Prove that $cal(H)(k, x) = cal(F)(k, x) xor x$ is also a PRF.
 ]
 
 #v(0.8em)

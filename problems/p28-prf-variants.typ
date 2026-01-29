@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  Let $cal(F)_n$ be a Pseudo-Random Function family. For each construction $f'_k in cal(F)'_n$, prove it is a PRF or provide an attack.
+  Let $cal(F)_n$ be a Pseudo-Random Function family #link(<prf>)[(Appendix C.6)]. For each construction $f'_k in cal(F)'_n$, prove it is a PRF or provide an attack.
   
   + $f'_k (x, y) = f_k (x) xor f_k (y)$
   + $f'_k (x, y) = f_k (x xor y)$

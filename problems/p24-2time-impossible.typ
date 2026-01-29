@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Task:* Prove that no encryption scheme can satisfy the following definition of perfect secrecy for two messages:
+  *Task:* Prove that no encryption scheme can satisfy the following definition of perfect secrecy #link(<perfect-secrecy>)[(Appendix C.8)] for two messages:
   
   For all distributions over $cal(M) times cal(M)$, all $(m_1, m_2) in cal(M) times cal(M)$ and all $(c_1, c_2) in cal(C) times cal(C)$ where $Pr[C_1 = c_1 and C_2 = c_2] > 0$:
   

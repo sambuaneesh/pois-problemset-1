@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Question:* When using the one-time pad with key $k = 0^ell$, we have $"Enc"_k (m) = k xor m = m$ and the message is sent in the clear! It has been suggested to modify OTP by only encrypting with $k != 0^ell$ (i.e., Gen chooses $k$ uniformly from the set of *nonzero* keys of length $ell$). Is this modified scheme still perfectly secret?
+  *Question:* When using the one-time pad with key $k = 0^ell$, we have $"Enc"_k (m) = k xor m = m$ and the message is sent in the clear! It has been suggested to modify OTP by only encrypting with $k != 0^ell$ (i.e., Gen chooses $k$ uniformly from the set of *nonzero* keys of length $ell$). Is this modified scheme still perfectly secret #link(<perfect-secrecy>)[(Appendix C.8)]?
 ]
 
 #v(0.8em)

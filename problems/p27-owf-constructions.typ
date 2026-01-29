@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  Let $f$ be a length-preserving one-way function. For each construction below, prove it is one-way or provide a counterexample.
+  Let $f$ be a length-preserving one-way function #link(<one-way-functions>)[(Appendix C.1)]. For each construction below, prove it is one-way or provide a counterexample.
   
   + $f_0(x) = f(f(x))$
   + $f_1(x, y) := f(x) || f(x xor y)$

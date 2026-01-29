@@ -8,7 +8,7 @@
   radius: 4pt,
   width: 100%,
 )[
-  *Task:* Let $cal(F) : {0,1}^n times {0,1}^n -> {0,1}^n$ be a PRF and let $cal(G)(k, (x, y)) = cal(F)(k, x) xor cal(F)(k, y)$. Prove that $cal(G)$ is *not* a PRF.
+  *Task:* Let $cal(F) : {0,1}^n times {0,1}^n -> {0,1}^n$ be a PRF #link(<prf>)[(Appendix C.6)] and let $cal(G)(k, (x, y)) = cal(F)(k, x) xor cal(F)(k, y)$. Prove that $cal(G)$ is *not* a PRF.
 ]
 
 #v(0.8em)

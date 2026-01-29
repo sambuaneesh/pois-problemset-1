@@ -10,7 +10,7 @@
 )[
   Define functions $g(n) = 2^(-f(n))$.
   
-  + Prove that if $f(n) = omega(log n)$, then $g(n)$ is negligible.
+  + Prove that if $f(n) = omega(log n)$, then $g(n)$ is negligible #link(<negligible-functions>)[(Appendix C.5)].
   + Prove that if $f(n) = O(log n)$, then $g(n)$ is non-negligible.
 ]
 
