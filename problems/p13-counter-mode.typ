@@ -1,6 +1,36 @@
+#import "../preamble.typ": *
 // Problem 13: PRF Extension and Counter Mode
 
 = Problem 13:  Weakly-Secure PRF and Counter Mode <p13>
+
+#difficulty("Advanced") #tag("Protocol") #tag("CTR")
+
+#scenario-box("The Resettable Counter")[
+  *Intel Report:* An enemy radio uses CTR mode. The protocol says "Pick a random IV". However, their "random" number generator resets to 0 every time the radio is turned on.
+
+  *Your Mission:* Explain why this "randomness failure" is catastrophic for CTR mode (reused nonces), unlike CBC mode where it might just leak the first block equality.
+]
+
+#v(1em)
+
+#align(center)[
+  #block(stroke: 1pt + rgb("#2c5282"), inset: 10pt, radius: 5pt, fill: rgb("#ebf8ff"))[
+    *Visualizing Counter Mode Encryption*
+    #v(0.5em)
+    #grid(
+      columns: (auto, auto, auto, auto, auto),
+      column-gutter: 10pt,
+      align: center + horizon,
+      [Nonce $||$ Ctr], [$arrow.r$], [PRF $F_k$], [$arrow.r$], [Pad Block],
+      [], [], [], [$arrow.b$], [$plus.o$],
+      [], [], [], [], [Plaintext $m_i$],
+      grid.cell(colspan: 5)[#line(length: 100%, stroke: 0.5pt + gray)],
+      [Nonce $||$ Ctr+1], [$arrow.r$], [PRF $F_k$], [$arrow.r$], [Pad Block],
+      [], [], [], [$arrow.b$], [$plus.o$],
+      [], [], [], [], [Plaintext $m_(i+1)$]
+    )
+  ]
+]
 
 #block(
   fill: luma(245),

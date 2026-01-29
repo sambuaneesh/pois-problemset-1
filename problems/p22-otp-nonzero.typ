@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 22: Modified OTP with Non-Zero Keys
 
 = Problem 22:  OTP with Non-Zero Keys Only <p22>
+
+#difficulty("Beginner") #tag("Theory") #tag("PerfectSecrecy")
+
+#scenario-box("The Paranoid Generator")[
+  *Intel Report:* A nervous operator refuses to use the key $00...0$ for the One-Time Pad because "encryption shouldn't send the message in cleartext!". He removes it from the key space.
+
+  *Your Mission:* Prove that his "fix" actually breaks the Perfect Secrecy of the system.
+]
 
 #block(
   fill: luma(245),

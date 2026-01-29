@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 14: Hard-Core Predicates
 
 = Problem 14:  Hard-Core Predicates and Universality <p14>
+
+#difficulty("Advanced") #tag("Theory") #tag("HardCore")
+
+#scenario-box("The Hidden Bit")[
+  *Intel Report:* Even if a function $f(x)$ is impossible to invert, does it leak *some* information about $x$? Maybe the first bit? Or the XOR of all bits?
+
+  *Your Mission:* Identify the "Hard-Core Predicate" — the specific bit of information that remains as secret as $x$ itself.
+]
 
 #block(
   fill: luma(245),

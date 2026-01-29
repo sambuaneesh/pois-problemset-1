@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 20: Block Cipher Modes and Dropped Blocks
 
 = Problem 20:  Dropped Ciphertext Blocks & CTR Mode Security <p20>
+
+#difficulty("Advanced") #tag("Protocol") #tag("ModesOfOperation")
+
+#scenario-box("The Packet Loss Mystery")[
+  *Intel Report:* We are broadcasting encrypted video over a lossy radio link (UDP). Packets get dropped frequently.
+
+  *Your Mission:* Determine which encryption mode (CBC, OFB, or CTR) will let the video keep playing with minor glitches, and which ones will turn the screen to static noise forever.
+]
 
 #block(
   fill: luma(245),

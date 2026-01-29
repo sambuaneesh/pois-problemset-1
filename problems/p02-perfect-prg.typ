@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 2: Perfect Pseudo-Random Generators
 
 = Problem 2: Perfect Pseudo-Random Generators <p02>
+
+#difficulty("Intermediate") #tag("PRG") #tag("InformationTheory")
+
+#scenario-box("The Infinite Compression Machine")[
+  *Intel Report:* A startup claims they have invented a "Perfect Random Number Generator" that takes a 100-bit seed and outputs a TRULY random 1000-bit stream, indistinguishable from natural noise.
+
+  *Your Mission:* Prove mathematically why this claim is impossible (hint: can you create information from nothing?).
+]
 
 #block(
   fill: luma(245),

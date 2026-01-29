@@ -1,6 +1,33 @@
+#import "../preamble.typ": *
 // Problem 9: PRG Constructions
 
 = Problem 9:  PRG or Not? <p09>
+
+#difficulty("Beginner") #tag("Design") #tag("PRG")
+
+#scenario-box("The Broken Mixer")[
+  *Intel Report:* We are auditing four different designs for a Pseudo-Random Generator. Some of them try to "mix" the output of a secure PRG to make it "more random".
+
+  *Your Mission:* Identify which designs actually destroy the security (e.g., by XORing identical streams) and which ones preserve it.
+]
+
+#v(1em)
+
+#align(center)[
+  #block(stroke: 1pt + red, inset: 10pt, radius: 5pt, fill: rgb("#fff5f5"))[
+    *Visualizing the Flaw in Part (a)*
+    #v(0.5em)
+    #grid(
+      columns: (auto, auto, auto, auto, auto),
+      column-gutter: 8pt,
+      align: center + horizon,
+      [$G(s)$], [$+$], [$G(s)$], [$=$], [*0*],
+      [Random?], [], [Random?], [], [Not Random!]
+    )
+    #v(0.5em)
+    #text(size: 9pt, style: "italic")[Self-cancellation destroys entropy.]
+  ]
+]
 
 #block(
   fill: luma(245),

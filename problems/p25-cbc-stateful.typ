@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 25: Stateful CBC-Mode and Ciphertext Length
 
 = Problem 25:  CBC Mode Variants <p25>
+
+#difficulty("Advanced") #tag("Attack") #tag("CBC")
+
+#scenario-box("The Chained IV")[
+  *Intel Report:* To save bandwidth, an implementation of CBC mode uses the *last ciphertext block of the previous message* as the IV for the next message.
+
+  *Your Mission:* Launch a Chosen Plaintext Attack (CPA) against this "Stateful CBC" scheme. Show how predicting the IV allows you to verify guesses about the plaintext.
+]
 
 #block(
   fill: luma(245),

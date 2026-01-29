@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 7: Weak Primes for DLP
 
-= Problem 7:  Unsuitable Primes for DLP-Based Cryptography <p07>
+= Problem 7:  Unsuitable Primes for DLP <p07>
+
+#difficulty("Advanced") #tag("Attack") #tag("NumberTheory")
+
+#scenario-box(" The Smooth Prime Disaster")[
+  *Intel Report:* We found a server using Diffie-Hellman with a huge prime $p$. However, the factorization of $p-1$ consists of only tiny primes (it's "smooth").
+
+  *Your Mission:* Show how to break this system by solving the Discrete Log problem piece by piece (Pohlig-Hellman) instead of all at once.
+]
 
 #block(
   fill: luma(245),

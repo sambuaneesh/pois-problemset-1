@@ -1,6 +1,13 @@
+#import "../preamble.typ": *
 // Problem 1: Security Through Obscurity
 
 = Problem 1:  Security Through Obscurity <p01>
+
+#difficulty("Beginner") #tag("Design") #tag("Kerckhoffs")
+
+#scenario-box("The Hidden Algorithm")[
+  *Intel Report:* You have intercepted a device from "SecureCorp". They claim their encryption is unbreakable because "no one knows how our custom shuffling algorithm works." Your commander asks: "Is this secure?"
+]
 
 #block(
   fill: luma(245),

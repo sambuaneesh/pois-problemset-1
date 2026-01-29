@@ -1,6 +1,36 @@
+#import "../preamble.typ": *
 // Problem 24: 2-Time Perfect Secrecy is Impossible
 
 = Problem 24:  Impossibility of 2-Time Perfect Secrecy <p24>
+
+#difficulty("Intermediate") #tag("Theory") #tag("OTP")
+
+#scenario-box("The Greedy Reuser")[
+  *Intel Report:* The "Double-Use OTP" salesman is back. He admits $K$ needs to be $2M$ long for 2 messages (P10). But he claims if $K$ is just $M$ long, maybe we can encrypt 2 messages if we accept "just a little leak".
+
+  *Your Mission:* Prove him wrong. Show that reusing an $M$-bit key for two messages breaks perfect secrecy completely.
+]
+
+#v(1em)
+
+#align(center)[
+  #block(stroke: 1pt + rgb("#d9534f"), inset: 10pt, radius: 5pt, fill: rgb("#fff5f5"))[
+    *Visualizing The Leak*
+    #v(0.5em)
+    #grid(
+      columns: (auto, auto, auto, auto, auto),
+      column-gutter: 10pt,
+      align: center + horizon,
+      [$c_1$], [$=$], [$m_1$], [$xor$], [$k$],
+      [$xor$], [], [$xor$], [], [$xor$],
+      [$c_2$], [$=$], [$m_2$], [$xor$], [$k$],
+      grid.cell(colspan: 5)[#line(length: 100%, stroke: 0.5pt + red)],
+      [$c_1 xor c_2$], [$=$], [$m_1 xor m_2$], [], [$0$]
+    )
+    #v(0.5em)
+    #text(size: 9pt, style: "italic")[The key $k$ cancels out, revealing the XOR of messages!]
+  ]
+]
 
 #block(
   fill: luma(245),

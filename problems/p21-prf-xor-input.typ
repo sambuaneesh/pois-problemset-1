@@ -1,6 +1,37 @@
+#import "../preamble.typ": *
 // Problem 21: F(k,x) XOR x is a PRF
 
 = Problem 21:  PRF XORed with Input <p21>
+
+#difficulty("Intermediate") #tag("Design") #tag("Feistel")
+
+#scenario-box("The Self-Masking Function")[
+  *Intel Report:* We found a crypto function that "masks itself". It takes input $x$, computes a secret function $F(x)$, and then mixes $x$ back in: $H(x) = F(x) xor x$.
+
+  *Your Mission:* Determine if leaking the input $x$ into the output destroys the security of $F$. Is this safe, or does it leak information?
+]
+
+#v(1em)
+
+#align(center)[
+  #block(stroke: 1pt + rgb("#2c5282"), inset: 10pt, radius: 5pt, fill: rgb("#ebf8ff"))[
+    *Visualizing the Construction (Feistel-like)*
+    #v(0.5em)
+    #grid(
+      columns: (auto, auto, auto),
+      column-gutter: 15pt,
+      align: center + horizon,
+      [Input $x$], [], [],
+      [$arrow.b$], [], [],
+      [#circle(radius: 4pt, fill: black)], [$arrow.r$], [PRF $F_k$],
+      [$arrow.b$], [], [$arrow.b$],
+      [$plus.o$], [$arrow.l$], [Result],
+
+      [$arrow.b$], [], [],
+      [Output], [], []
+    )
+  ]
+]
 
 #block(
   fill: luma(245),

@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 17: EAV vs CPA Security
 
 = Problem 17:  EAV-Security vs CPA-Security <p17>
+
+#difficulty("Intermediate") #tag("Theory") #tag("Definitions")
+
+#scenario-box("The Passive Listener")[
+  *Intel Report:* We are debating two security standards. Standard A says "Adversary can only listen." Standard B says "Adversary can trick the server into encrypting messages."
+
+  *Your Mission:* Prove that a system can be safe against listeners (EAV) but totally broken against active tricksters (CPA).
+]
 
 #block(
   fill: luma(245),

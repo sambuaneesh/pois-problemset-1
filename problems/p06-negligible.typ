@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 6: Negligible Functions
 
 = Problem 6:  Negligible or Not? <p06>
+
+#difficulty("Beginner") #tag("Math") #tag("Definitions")
+
+#scenario-box("The Threshold of Impossibility")[
+  *Intel Report:* Our analysts are arguing about "safety margins". One says an error rate of $1/n^2$ is fine. Another demands $2^(-n)$.
+
+  *Your Mission:* Define the exact mathematical line between "likely to happen eventually" (Polynomial) and "will never happen in the lifetime of the universe" (Negligible).
+]
 
 #block(
   fill: luma(245),

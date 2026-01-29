@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 3: Hard-Core Predicates for DLP
 
 = Problem 3:  Hard-Core Predicates for DLP <p03>
+
+#difficulty("Advanced") #tag("DLP") #tag("HardcoreBit")
+
+#scenario-box("The Partial Leak")[
+  *Intel Report:* We are monitoring an adversary using Discrete Log-based crypto. We can't find $x$ from $g^x$, but we have a magical device that ALWAYS guesses the *first bit* of $x$ correctly.
+
+  *Your Mission:* Determine if this "small leak" is catastrophic. Can we recover the whole key $x$ just from this one bit?
+]
 
 #block(
   fill: luma(245),

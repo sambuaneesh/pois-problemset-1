@@ -1,14 +1,42 @@
+#import "../preamble.typ": *
 // Problem 4: Modified Substitution Cipher
 
 = Problem 4:  Modified Substitution Cipher <p04>
 
-#block(
-  fill: luma(245),
-  inset: 10pt,
-  radius: 4pt,
-  width: 100%,
-)[
-  *Task:* Consider a modification where we first apply a substitution cipher #link(<substitution-cipher>)[(Appendix A.2)], then apply a shift cipher #link(<shift-cipher>)[(A.1)] on the substituted values. Give a formal description and show how to break this scheme.
+#difficulty("Beginner") #tag("Design") #tag("ClassicalCrypto")
+
+#scenario-box("The Double-Locked Box")[
+  *Intel Report:* A rebel group is using a "Double-Layer" cipher. First, they scramble the alphabet (Substitution). Then, they shift the result (Caesar). They think two layers make it twice as strong.
+
+  *Your Mission:* Prove that $"Layer"_2("Layer"_1(x))$ isn't always stronger than $"Layer"_1(x)$. Break their code.
+]
+
+#v(1em)
+
+#align(center)[
+  #block(stroke: 1pt + gray, inset: 10pt, radius: 5pt)[
+    *Visualizing the Composition:*
+    #v(0.5em)
+    #grid(
+      columns: (auto, auto, auto, auto, auto),
+      column-gutter: 10pt,
+      align: center + horizon,
+      [Plaintext $m$],
+      [$arrow.r$],
+      [#circle(radius: 15pt, fill: rgb("#e3f2fd"), stroke: 1pt + blue)[$pi$]],
+      [$arrow.r$],
+      [#circle(radius: 15pt, fill: rgb("#e8f5e9"), stroke: 1pt + green)[$+k$]],
+      grid.cell(colspan: 5)[
+        #v(0.5em)
+        $ arrow.b $
+      ],
+      grid.cell(colspan: 5)[
+        #rect(fill: rgb("#fff3e0"), stroke: 1pt + orange, inset: 8pt, radius: 4pt)[
+          *Equivalent Single Permutation $sigma$*
+        ]
+      ]
+    )
+  ]
 ]
 
 #v(0.8em)

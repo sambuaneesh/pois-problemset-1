@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 15: CPA Security with Polynomial Evaluation
 
 = Problem 15:  Breaking CPA Security with Polynomial Queries <p15>
+
+#difficulty("Advanced") #tag("Math") #tag("CPA")
+
+#scenario-box("The Secret Polynomial")[
+  *Intel Report:* The enemy is using a polynomial $P(x)$ over a field to hide their key. They think evaluating it at random points is secure.
+
+  *Your Mission:* Use Lagrange Interpolation to recover the secret. Show that $d+1$ points reveal everything.
+]
 
 #block(
   fill: luma(245),

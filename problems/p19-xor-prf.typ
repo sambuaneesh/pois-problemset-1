@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 19: XOR of PRF Values is NOT a PRF
 
 = Problem 19:  XOR of PRF Outputs <p19>
+
+#difficulty("Beginner") #tag("Design") #tag("PRF")
+
+#scenario-box("The XOR Mixer")[
+  *Intel Report:* To make our PRF "more random", an engineer suggests XORing two PRF outputs: $G(x,y) = F(x) xor F(y)$. "It mixes the bits!"
+
+  *Your Mission:* Show that this actually *creates* structure (algebraic flaws) rather than hiding it.
+]
 
 #block(
   fill: luma(245),

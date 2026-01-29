@@ -1,6 +1,36 @@
+#import "../preamble.typ": *
 // Problem 28: PRF Constructions
 
 = Problem 28:  PRF Constructions Analysis <p28>
+
+#difficulty("Advanced") #tag("Design") #tag("Composition")
+
+#scenario-box("The Layered Defense")[
+  *Intel Report:* To maximize security, we are stacking multiple PRFs. $F_"key"("input")$ is good, but is $F_(F_"key"(x))(y)$ better? Or does it just shift the problem?
+
+  *Your Mission:* Analyze these "composition" strategies. Identify which ones build a stronger wall (HMAC-like) and which ones crumble instantly.
+]
+
+#v(1em)
+
+#align(center)[
+  #block(stroke: 1pt + rgb("#2c5282"), inset: 10pt, radius: 5pt, fill: rgb("#ebf8ff"))[
+    *Visualizing Nested Composition (Part d)*
+    #v(0.5em)
+    #grid(
+      columns: (auto, auto, auto, auto, auto),
+      column-gutter: 10pt,
+      align: center + horizon,
+      [Primary Key $k$], [$arrow.r$], [PRF $F_k$], [$arrow.r$], [Derived Key $k_x$],
+      [], [], [$arrow.b$], [], [$arrow.b$],
+      [], [], [Input $x$], [], [$arrow.b$],
+      [], [], [], [], [PRF $F_(k_x)$],
+      [], [], [], [], [$arrow.b$],
+      [], [], [Input $y$], [$arrow.r$], [$arrow.b$],
+      [], [], [], [], [Output]
+    )
+  ]
+]
 
 #block(
   fill: luma(245),

@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 23: CPA-Secure Encryption Construction
 
 = Problem 23:  CPA-Secure Encryption with Randomization <p23>
+
+#difficulty("Intermediate") #tag("Design") #tag("KEM")
+
+#scenario-box("The Hybrid Encryptor")[
+  *Intel Report:* We are analyzing a scheme that combines a fixed encryption system with a random one-time pad. `Enc(m) = (E(r), r + m)`.
+
+  *Your Mission:* Determine if "encrypting the key" ($r$) and then using it as a mask ($m+r$) is a valid strategy for CPA security.
+]
 
 #block(
   fill: luma(245),

@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 10: 2-Time Perfect Security
 
 = Problem 10:  2-Time Perfectly Secure Encryption <p10>
+
+#difficulty("Intermediate") #tag("InformationTheory") #tag("TwoTimePad")
+
+#scenario-box("The Double Dip")[
+  *Intel Report:* We intercepted two different ciphertexts encrypted with the *same* key. The enemy claims their "Affine Cipher" is perfectly secure because the key space is large enough.
+
+  *Your Mission:* Prove them right for *two* messages, but explain why they are doomed if they send a third.
+]
 
 #block(
   fill: luma(245),

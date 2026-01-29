@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 26: Negligibility Characterization
 
 = Problem 26:  Negligibility of $2^(-f(n))$ <p26>
+
+#difficulty("Beginner") #tag("Math") #tag("Asymptotics")
+
+#scenario-box("The Shrinking Probabilities")[
+  *Intel Report:* A cryptographer claims their system has failure probability $2^(-log n)$. Another claims $2^(-n)$.
+
+  *Your Mission:* Sort these functions. Which one is "Small enough to ignore" (Negligible) and which one is "A major vulnerability" (Polynomial)?
+]
 
 #block(
   fill: luma(245),

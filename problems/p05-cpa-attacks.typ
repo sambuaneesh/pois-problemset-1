@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 5: Chosen Plaintext Attacks
 
 = Problem 5:  Chosen Plaintext Attacks <p05>
+
+#difficulty("Intermediate") #tag("Attack") #tag("CPA")
+
+#scenario-box("The Probing Attack")[
+  *Intel Report:* You have access to an "Encryption Oracle" provided by the enemy. You can feed it any text you want and see the ciphertext, but you can't see the key.
+
+  *Your Mission:* The enemy sends a challenge ciphertext: either $"Enc"(m_0)$ or $"Enc"(m_1)$. Use your oracle access to determine which one it is.
+]
 
 #block(
   fill: luma(245),

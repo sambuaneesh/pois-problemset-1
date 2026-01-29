@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 27: One-Way Function Constructions
 
 = Problem 27:  Constructions from One-Way Functions <p27>
+
+#difficulty("Intermediate") #tag("Design") #tag("Reductions")
+
+#scenario-box("The Stronger Link")[
+  *Intel Report:* We have a One-Way Function $f$. We want to build a *stronger* one $g$. We propose $g(x) = f(f(x))$ and $g(x) = f(x) || f(f(x))$.
+
+  *Your Mission:* Verify these constructions. Does applying the function twice make it harder to invert, or does it just waste cycles?
+]
 
 #block(
   fill: luma(245),

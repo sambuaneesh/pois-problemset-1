@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 11: Variable-Length Perfect Secrecy
 
 = Problem 11:  Perfect Secrecy for Variable-Length Messages <p11>
+
+#difficulty("Beginner") #tag("Theory") #tag("LengthExtension")
+
+#scenario-box("The Length Leak")[
+  *Intel Report:* A new encryption scheme handles messages of *variable length*, but the ciphertext length perfectly matches the message length.
+
+  *Your Mission:* Show why revealing the *length* of the message inherently breaks the strict definition of Perfect Secrecy.
+]
 
 #block(
   fill: luma(245),

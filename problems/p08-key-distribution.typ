@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 8: Encryption Scheme Equivalence
 
 = Problem 8:  Uniform vs Non-Uniform Key Distributions <p08>
+
+#difficulty("Intermediate") #tag("Theory") #tag("KeyGen")
+
+#scenario-box("The Biased Coin")[
+  *Intel Report:* A rogue engineer modified our key generator. Instead of choosing keys uniformly, it avoids certain patterns.
+
+  *Your Mission:* Determine if this bias matters. Can we always "fix" a biased key distribution to make it secure, or do we need perfect uniformity from the start?
+]
 
 #block(
   fill: luma(245),

@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 12: PRF Constructions
 
 = Problem 12:  PRF or Not? <p12>
+
+#difficulty("Intermediate") #tag("Design") #tag("Extension")
+
+#scenario-box("The Infinite Stream")[
+  *Intel Report:* We have a "Doubling Generator" that turns $n$ bits into $2n$ bits. We need to stretch it further.
+
+  *Your Mission:* Analyze constructions to turn this small generator into a massive random function. Which blueprint works?
+]
 
 #block(
   fill: luma(245),

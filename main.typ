@@ -12,6 +12,49 @@
 #set heading(numbering: "1.")
 #set par(justify: true, leading: 0.65em)
 
+// Import visual enhancement helpers
+// Visual Enhancement Helpers (Inlined)
+
+// Scenario Box (Mission Briefing)
+#let scenario-box(title, content) = {
+  block(
+    fill: rgb("#2d3748"),
+    stroke: (left: 4pt + rgb("#a0aec0")),
+    inset: 12pt,
+    radius: (right: 4pt),
+    width: 100%,
+  )[
+    #text(weight: "bold", fill: white, font: "Courier New")[🕵️ MISSION: #title]
+    #v(0.5em)
+    #text(fill: rgb("#e2e8f0"), font: "Courier New")[#content]
+  ]
+}
+
+// Difficulty Badges
+#let difficulty(level) = {
+  if level == "Beginner" {
+    box(fill: rgb("#c6f6d5"), inset: (x: 6pt, y: 3pt), radius: 3pt, stroke: rgb("#2f855a"))[
+      #text(size: 9pt, weight: "bold", fill: rgb("#22543d"))[🟢 Beginner]
+    ]
+  } else if level == "Intermediate" {
+    box(fill: rgb("#feebc8"), inset: (x: 6pt, y: 3pt), radius: 3pt, stroke: rgb("#c05621"))[
+      #text(size: 9pt, weight: "bold", fill: rgb("#7b341e"))[🟡 Intermediate]
+    ]
+  } else if level == "Advanced" {
+    box(fill: rgb("#fed7d7"), inset: (x: 6pt, y: 3pt), radius: 3pt, stroke: rgb("#c53030"))[
+      #text(size: 9pt, weight: "bold", fill: rgb("#822727"))[🔴 Advanced]
+    ]
+  }
+}
+
+// Topic Tags
+#let tag(name) = {
+  box(fill: rgb("#edf2f7"), inset: (x: 6pt, y: 3pt), radius: 3pt, stroke: rgb("#cbd5e0"))[
+    #text(size: 8pt, weight: "bold", fill: rgb("#4a5568"))[\##name]
+  ]
+}
+
+
 // Style links with attractive pill-style appearance (preserves clickability)
 #show link: it => {
   text(fill: rgb("#2c5282"), weight: "medium", size: 9pt)[
@@ -161,10 +204,9 @@
   ]
 }
 
-// Security status indicators
-#let secure = text(fill: rgb("#43a047"), weight: "bold")[✅ SECURE]
-#let insecure = text(fill: rgb("#e53935"), weight: "bold")[❌ INSECURE]
-#let partial = text(fill: rgb("#fb8c00"), weight: "bold")[⚠️ PARTIAL]
+// Import visual enhancement helpers
+
+
 
 
 // ============================================================================

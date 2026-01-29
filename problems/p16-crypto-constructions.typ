@@ -1,19 +1,21 @@
+#import "../preamble.typ": *
 // Problem 16: Cryptographic Constructions
 
 = Problem 16:  Constructing Primitives from Other Primitives <p16>
 
-#block(
-  fill: luma(245),
-  inset: 10pt,
-  radius: 4pt,
-  width: 100%,
-)[
+#difficulty("Advanced") #tag("Design") #tag("Reductions")
+
+#scenario-box("The Primitive Factory")[
+  *Intel Report:* We have a "One-Way Permutation" engine. We need to build a massive "Pseudorandom Function" system for our database.
+
+  *Your Mission:* Engineer the assembly line. Show how to turn the "hard to invert" blocks into "random looking" bits (PRG), and then tree-structure them into a PRF (GGM).
+]
   *Task:* Give complete details of how to construct $Y$ from $X$ where:
   
   + $X =$ One-way permutation #link(<one-way-functions>)[(C.1)], $Y =$ Pseudorandom generator #link(<prg>)[(C.3)]
   + $X =$ Pseudorandom generator #link(<prg>)[(C.3)], $Y =$ One-way function #link(<one-way-functions>)[(C.1)]
   + $X =$ Pseudorandom generator #link(<prg>)[(C.3)], $Y =$ Pseudorandom function #link(<prf>)[(C.6)]
-]
+
 
 #v(0.8em)
 
@@ -180,16 +182,20 @@ Write $G(s) = G_0 (s) || G_1 (s)$ where $G_0, G_1 : {0,1}^n -> {0,1}^n$ are the 
   radius: 4pt,
 )[
   *Binary tree of depth $n$:*
-  
-  ```
-  Level 0 (root):     k
-                     / \
-  Level 1:       G₀(k)  G₁(k)
-                 / \     / \
-  Level 2:   G₀G₀(k) G₁G₀(k) G₀G₁(k) G₁G₁(k)
-                ...
-  Level n:   F_k(0...00)  F_k(0...01)  ...  F_k(1...11)
-  ```
+  #v(1em)
+  #align(center)[
+    #grid(
+      columns: (1fr, 1fr, 1fr, 1fr),
+      rows: (auto, auto, auto, auto),
+      row-gutter: 15pt,
+      column-gutter: 5pt,
+      align: center,
+      grid.cell(colspan: 4)[#rect(fill: white, stroke: 1pt + black)[Key $k$]],
+      grid.cell(colspan: 2)[$↙ G_0(k)$], grid.cell(colspan: 2)[$G_1(k) ↘$],
+      [$↙ G_00$], [$G_01 ↘$], [$↙ G_10$], [$G_11 ↘$],
+      [...], [...], [...], [...]
+    )
+  ]
   
   Each leaf corresponds to one input $x$, and $F_k (x)$ is the value at that leaf.
 ]

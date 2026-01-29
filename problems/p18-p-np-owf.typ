@@ -1,6 +1,15 @@
+#import "../preamble.typ": *
 // Problem 18: P ≠ NP and One-Way Functions
 
 = Problem 18:  P ≠ NP vs One-Way Functions <p18>
+
+#difficulty("Advanced") #tag("Theory") #tag("Complexity")
+
+#scenario-box("The Hardness Gap")[
+  *Intel Report:* A mathematician proved $P != "NP"$. He claims this means our cryptography is safe forever.
+
+  *Your Mission:* Debunk this. Show that even if some problems are hard in the *worst case*, they might be easy on *average* (breaking crypto).
+]
 
 #block(
   fill: luma(245),
